@@ -9,6 +9,7 @@ public class Design {
 	
 	private CellStyle style,style2,design,designUp,designUpLeft,designUpRight,designDown,designDownLeft,designDownRight,designLeft,designRight;
 	
+	@SuppressWarnings("deprecation")
 	public Design(HSSFWorkbook workbook){
 		style = workbook.createCellStyle();
 	  	style.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);

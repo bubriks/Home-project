@@ -6,7 +6,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import ControlLayer.Means;
 import ControlLayer.RentControler;
 import ModelLayer.Design;
 import ModelLayer.Prices;
@@ -78,7 +77,7 @@ public class RentUI extends JFrame {
 			}
 		});
 		
-		lblNewLabel_3 = new JLabel("Elektr\u012Bba");
+		lblNewLabel_3 = new JLabel("Elektrība");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.gridwidth = 3;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
@@ -138,7 +137,7 @@ public class RentUI extends JFrame {
 			}
 		});
 		
-		lblNewLabel_2 = new JLabel("\u016Adens");
+		lblNewLabel_2 = new JLabel("Ūdens");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.gridwidth = 3;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);

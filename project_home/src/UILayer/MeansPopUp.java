@@ -43,7 +43,7 @@ public class MeansPopUp extends JFrame {
 
 	 protected MeansPopUp(Owner owner) {
 		setAlwaysOnTop (true);
-		setTitle("Sa��m�js");
+		setTitle("Saņēmējs");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,7 +55,7 @@ public class MeansPopUp extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblName = new JLabel("V\u0101rds");
+		JLabel lblName = new JLabel("Vārds");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblName.anchor = GridBagConstraints.EAST;
@@ -127,7 +127,7 @@ public class MeansPopUp extends JFrame {
 		textField_3.setText(owner.getCode());
 		textField_3.setColumns(10);
 		
-		JLabel lblRekviz = new JLabel("Rekviz\u012Bti");
+		JLabel lblRekviz = new JLabel("Rekvizīti");
 		GridBagConstraints gbc_lblRekviz = new GridBagConstraints();
 		gbc_lblRekviz.anchor = GridBagConstraints.EAST;
 		gbc_lblRekviz.insets = new Insets(0, 0, 5, 5);
@@ -163,7 +163,7 @@ public class MeansPopUp extends JFrame {
 		textField_5.setText(owner.getInfo());
 		textField_5.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Saglab\u0101t");
+		JButton btnNewButton = new JButton("Saglabāt");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 2;
 		gbc_btnNewButton.gridx = 0;
@@ -204,7 +204,7 @@ public class MeansPopUp extends JFrame {
 	 
 	 protected MeansPopUp(Reciever reciever) {
 			setAlwaysOnTop (true);
-			setTitle("Maks�t�js");
+			setTitle("Maksātājs");
 			setBounds(100, 100, 450, 300);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -216,7 +216,7 @@ public class MeansPopUp extends JFrame {
 			gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			contentPane.setLayout(gbl_contentPane);
 			
-			JLabel lblName = new JLabel("V\u0101rds");
+			JLabel lblName = new JLabel("Vārds");
 			GridBagConstraints gbc_lblName = new GridBagConstraints();
 			gbc_lblName.insets = new Insets(0, 0, 5, 5);
 			gbc_lblName.anchor = GridBagConstraints.EAST;
@@ -252,7 +252,7 @@ public class MeansPopUp extends JFrame {
 			textField_1.setText(reciever.getAdress());
 			textField_1.setColumns(10);
 			
-			JLabel lblRekviz = new JLabel("Rekviz\u012Bti");
+			JLabel lblRekviz = new JLabel("Rekvizīti");
 			GridBagConstraints gbc_lblRekviz = new GridBagConstraints();
 			gbc_lblRekviz.anchor = GridBagConstraints.EAST;
 			gbc_lblRekviz.insets = new Insets(0, 0, 5, 5);
@@ -288,7 +288,7 @@ public class MeansPopUp extends JFrame {
 			textField_5.setText(reciever.getInfo());
 			textField_5.setColumns(10);
 			
-			JButton btnNewButton = new JButton("Saglab\u0101t");
+			JButton btnNewButton = new JButton("Saglabāt");
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.gridwidth = 2;
 			gbc_btnNewButton.gridx = 0;

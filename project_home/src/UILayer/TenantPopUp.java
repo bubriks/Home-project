@@ -17,18 +17,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -64,7 +54,7 @@ public class TenantPopUp extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
-		JLabel lblName = new JLabel("V\u0101rds");
+		JLabel lblName = new JLabel("Vārds");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblName.anchor = GridBagConstraints.EAST;
@@ -82,7 +72,7 @@ public class TenantPopUp extends JFrame {
 		textField.setText(tenant.getName());
 		textField.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("\u012Are");
+		JLabel lblNewLabel = new JLabel("Īre");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -195,7 +185,7 @@ public class TenantPopUp extends JFrame {
 			}
 		});
 
-		JButton btnNewButton = new JButton("Saglab\u0101t");
+		JButton btnNewButton = new JButton("Saglabāt");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 2;
 		gbc_btnNewButton.gridx = 0;
@@ -212,7 +202,7 @@ public class TenantPopUp extends JFrame {
 			            inputBuffer.append('\n');
 			        }
 			        String inputStr = inputBuffer.toString();
-			        file.close();//o.o
+			        file.close();
 			        String name=textField.getText();
 		        	double rent = Double.parseDouble(textField_1.getText());
 		        	double heating = Double.parseDouble(textField_2.getText());

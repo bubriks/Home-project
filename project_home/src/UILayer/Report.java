@@ -155,7 +155,7 @@ public class Report extends JFrame {
 		gbc_panel_7.gridy = 2;
 		contentPane.add(panel_7, gbc_panel_7);
 		
-		JButton btnNewButton = new JButton("RadÓt");
+		JButton btnNewButton = new JButton("Radƒ´t");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 try {
@@ -216,7 +216,7 @@ public class Report extends JFrame {
 	protected HangarUI getHanger(){
 		return hangar;
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	private void info(){
 		File newTextFile = new File("info.txt");
 		try {//try's opening file
@@ -235,14 +235,14 @@ public class Report extends JFrame {
 			FileWriter fw = new FileWriter(newTextFile);
 			fw.write(""+dateString.substring(6, 10)+"."+dateString.substring(3, 5));//0
 			fw.write("\nCenas- 0.1727,1.2584,1.3431,0.0,0.0.");//1
-			fw.write("\nOwner- Sintija ZaÚÏe 040972-11072,Kurzemes iela 29, Tukums ,AS SEB Unibanka,UNLALV2X,LV95UNLA0050009677801,40003151743.");//2
+			fw.write("\nOwner- Sintija Za≈Üƒ£e 040972-11072,Kurzemes iela 29, Tukums ,AS SEB Unibanka,UNLALV2X,LV95UNLA0050009677801,40003151743.");//2
 			fw.write("\nReciever- SIA 'MEANS',Kurzemes iela 29, Tukums ,LV40UNLA0050000136610,LV40003532375.");//3
 			fw.write("\nMeans- 0.0.");//4
 			fw.write("\nTenants");//5
 			fw.write("\nEgils,0.0,0.0,28.5,28.5,0.0,0.0.");//6
 			fw.write("\nGatis,0.0,0.0,71.0,57.0,5.0,4.0.");//7
-			fw.write("\nZigrÓda,0.0,0.0,71.0,57.0,4.0,0.0.");//8
-			fw.write("\nEgn‚rs,0.0,0.0,42.68,28.5,0.0,7.0.");//9
+			fw.write("\nZigrƒ´da,0.0,0.0,71.0,57.0,4.0,0.0.");//8
+			fw.write("\nEgnƒÅrs,0.0,0.0,42.68,28.5,0.0,7.0.");//9
 	        fw.close();
 	}
 	

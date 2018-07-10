@@ -26,27 +26,27 @@ public class Means {
 		this.dateString=dateString;
 		HSSFSheet sheet = workbook.createSheet("Means");
 		ArrayList<Object[]> data=new ArrayList<Object[]>();
-		data.add(new Object[]{"Rçíins - Faktûra",dateString.substring(6, 10)+dateString.substring(3, 5)});//0
+		data.add(new Object[]{"RÄ“Ä·ins - FaktÅ«ra",dateString.substring(6, 10)+dateString.substring(3, 5)});//0
 		data.add(new Object[]{"Datums",getDate()});//1
 		data.add(new Object[]{"","",""});//2
-		data.add(new Object[]{"Preèu nosûtîtâjs",owner.getName(),"",""});//3
+		data.add(new Object[]{"PreÄu nosÅ«tÄ«tÄjs",owner.getName(),"",""});//3
 		data.add(new Object[]{"Adrese",owner.getAdress(),"",""});//4
 		data.add(new Object[]{"Izsniegts",owner.getAdress(),"",""});//5
-		data.add(new Object[]{"Norçíinu rekvizîti",owner.getBankName(),owner.getCode(),""});//6
-		data.add(new Object[]{"Norçíinu rekvizîti",owner.getRekvizit(),owner.getInfo(),""});//7
-		data.add(new Object[]{"Preèu saòçmçjs",reciever.getName(),reciever.getInfo(),""});//8
+		data.add(new Object[]{"NorÄ“Ä·inu rekvizÄ«ti",owner.getBankName(),owner.getCode(),""});//6
+		data.add(new Object[]{"NorÄ“Ä·inu rekvizÄ«ti",owner.getRekvizit(),owner.getInfo(),""});//7
+		data.add(new Object[]{"PreÄu saÅ†Ä“mÄ“js",reciever.getName(),reciever.getInfo(),""});//8
 		data.add(new Object[]{"Adrese",reciever.getAdress(),"",""});//9
-		data.add(new Object[]{"Saòemts",reciever.getAdress(),"",""});//10
-		data.add(new Object[]{"Piegâdes datums",getDeliveryDates(date),"",""});//11
-		data.add(new Object[]{"Norçíinu rekvizîti",reciever.getRekvizit(),"",""});//12
-		data.add(new Object[]{"Samaksas veids un kârtîba:","Ar pârskaitîjumu lîdz "+getDueDate(date),"",""});//13
-		data.add(new Object[]{"Mçrijumi",start,end,""});//14
-		data.add(new Object[]{"Nosaukums","Mçrvienîba","Patçrçts","Cena"});//15
-		data.add(new Object[]{"Maksa par elektroenerìiju","Kwh",0,prices.getElRate()});//16
-		data.add(new Object[]{"Kopâ:","","","€"});//17
+		data.add(new Object[]{"SaÅ†emts",reciever.getAdress(),"",""});//10
+		data.add(new Object[]{"PiegÄdes datums",getDeliveryDates(date),"",""});//11
+		data.add(new Object[]{"NorÄ“Ä·inu rekvizÄ«ti",reciever.getRekvizit(),"",""});//12
+		data.add(new Object[]{"Samaksas veids un kÄrtÄ«ba:","Ar pÄrskaitÄ«jumu lÄ«dz "+getDueDate(date),"",""});//13
+		data.add(new Object[]{"MÄ“rijumi",start,end,""});//14
+		data.add(new Object[]{"Nosaukums","MÄ“rvienÄ«ba","PatÄ“rÄ“ts","Cena"});//15
+		data.add(new Object[]{"Maksa par elektroenerÄ£iju","Kwh",0,prices.getElRate()});//16
+		data.add(new Object[]{"KopÄ:","","","â‚¬"});//17
 		data.add(new Object[]{"","","",""});//18
 		data.add(new Object[]{"","",""});//19
-		data.add(new Object[]{"Izsniedza","Sintija Zaòìe","Saòçma",""});//20
+		data.add(new Object[]{"Izsniedza","Sintija ZaÅ†Ä£e","SaÅ†Ä“ma",""});//20
 		data.add(new Object[]{getDate(),"",getDate().substring(0, 10),""});//21
 		data.add(new Object[]{"Paraksts","","Paraksts",""});//22
 		
@@ -160,19 +160,19 @@ public class Means {
 	                 break;
 	        case 2:  text = "divi";
 	                 break;
-	        case 3:  text = "trîs";
+	        case 3:  text = "trÄ«s";
 	                 break;
-	        case 4:  text = "èetri";
+	        case 4:  text = "Äetri";
 	                 break;
 	        case 5:  text = "pieci";
 	                 break;
-	        case 6:  text = "seği";
+	        case 6:  text = "seÅ¡i";
 	                 break;
-	        case 7:  text = "septiòi";
+	        case 7:  text = "septiÅ†i";
 	                 break;
-	        case 8:  text = "astoòi";
+	        case 8:  text = "astoÅ†i";
 	                 break;
-	        case 9:  text = "deviòi";
+	        case 9:  text = "deviÅ†i";
 	                 break;
 	        default: text = " ";
 	                 break;
@@ -183,19 +183,19 @@ public class Means {
 		                 break;
 		        case 20:  text = "divdesmit "+text;
 		                 break;
-		        case 30:  text = "trîsdesmit "+text;
+		        case 30:  text = "trÄ«sdesmit "+text;
 		                 break;
-		        case 40:  text = "èetrdesmit "+text;
+		        case 40:  text = "Äetrdesmit "+text;
 		                 break;
 		        case 50:  text = "piecdesmit "+text;
 		                 break;
-		        case 60:  text = "seğdesmit "+text;
+		        case 60:  text = "seÅ¡desmit "+text;
 		                 break;
-		        case 70:  text = "septiòdesmit "+text;
+		        case 70:  text = "septiÅ†desmit "+text;
 		                 break;
-		        case 80:  text = "astoòdesmit "+text;
+		        case 80:  text = "astoÅ†desmit "+text;
 		                 break;
-		        case 90:  text = "deviòdesmit "+text;
+		        case 90:  text = "deviÅ†desmit "+text;
 		                 break;
 		        default: text = ""+text;
 		                 break;
@@ -206,46 +206,46 @@ public class Means {
 			                 break;
 			        case 200:  text = "divi simti "+text;
 			                 break;
-			        case 300:  text = "trîs simti "+text;
+			        case 300:  text = "trÄ«s simti "+text;
 			                 break;
-			        case 400:  text = "èetri simti "+text;
+			        case 400:  text = "Äetri simti "+text;
 			                 break;
 			        case 500:  text = "pieci simti "+text;
 			                 break;
-			        case 600:  text = "seği simti "+text;
+			        case 600:  text = "seÅ¡i simti "+text;
 			                 break;
-			        case 700:  text = "septiòi simti "+text;
+			        case 700:  text = "septiÅ†i simti "+text;
 			                 break;
-			        case 800:  text = "astoòi simti "+text;
+			        case 800:  text = "astoÅ†i simti "+text;
 			                 break;
-			        case 900:  text = "deviòi simti "+text;
+			        case 900:  text = "deviÅ†i simti "+text;
 			                 break;
 			        default: text = ""+text;
 			                 break;
 					}
 					if(number>999){
 						if(number>9999){
-							 return "Pârâk liels skaitlis!";
+							 return "PÄrÄk liels skaitlis!";
 						}
 						else{
 							switch (number.intValue()%10000-number.intValue()%1000) {
-							case 1000:  text = "viens tûkstotis "+text;
+							case 1000:  text = "viens tÅ«kstotis "+text;
 				                 break;
-							case 2000:  text = "divi tûkstotis "+text;
+							case 2000:  text = "divi tÅ«kstotis "+text;
 				                 break;
-							case 3000:  text = "trîs tûkstotis "+text;
+							case 3000:  text = "trÄ«s tÅ«kstotis "+text;
 				                 break;
-							case 4000:  text = "èetri tûkstotis "+text;
+							case 4000:  text = "ÄŒetri tÅ«kstotis "+text;
 				                 break;
-							case 5000:  text = "pieci tûkstotis "+text;
+							case 5000:  text = "pieci tÅ«kstotis "+text;
 				                 break;
-							case 6000:  text = "seği tûkstotis "+text;
+							case 6000:  text = "seÅ¡i tÅ«kstotis "+text;
 				                 break;
-							case 7000:  text = "septiòi tûkstotis "+text;
+							case 7000:  text = "septiÅ†i tÅ«kstotis "+text;
 				                 break;
-							case 8000:  text = "astoòi tûkstotis "+text;
+							case 8000:  text = "astoÅ†i tÅ«kstotis "+text;
 				                 break;
-							case 9000:  text = "deviòi tûkstotis "+text;
+							case 9000:  text = "deviÅ†i tÅ«kstotis "+text;
 				                 break;
 							default: text = "";
 				                 break;
@@ -253,11 +253,11 @@ public class Means {
 						}
 					}
 					else{
-						text=text.substring(0, 1).toUpperCase() + text.substring(1)+" € "+cents;
+						text=text.substring(0, 1).toUpperCase() + text.substring(1)+" â‚¬ "+cents;
 					}
 				}
 				else{
-					text=text.substring(0, 1).toUpperCase() + text.substring(1)+" € "+cents;
+					text=text.substring(0, 1).toUpperCase() + text.substring(1)+" â‚¬ "+cents;
 				}
 			}
 			else{
@@ -265,12 +265,12 @@ public class Means {
 					text=cents;
 				}
 				else{
-					text=text.substring(0, 1).toUpperCase() + text.substring(1)+" € "+cents;
+					text=text.substring(0, 1).toUpperCase() + text.substring(1)+" â‚¬ "+cents;
 				}
 			}
 		}
 		else{
-			return "Negatîvi mçrijumi";
+			return "NegatÄ«vi mÄ“rijumi";
 		}
 		return text;
 	}
@@ -281,19 +281,19 @@ public class Means {
 		int year =Integer.parseInt(dateString.substring(6, 10));
         String monthString;
         switch (month) {
-            case 1:  monthString = "janvâris";
+            case 1:  monthString = "janvÄris";
                      break;
-            case 2:  monthString = "februâris";
+            case 2:  monthString = "februÄris";
                      break;
             case 3:  monthString = "marts";
                      break;
-            case 4:  monthString = "aprîlis";
+            case 4:  monthString = "aprÄ«lis";
                      break;
             case 5:  monthString = "maijs";
                      break;
-            case 6:  monthString = "jûnijs";
+            case 6:  monthString = "jÅ«nijs";
                      break;
-            case 7:  monthString = "jûlijs";
+            case 7:  monthString = "jÅ«lijs";
                      break;
             case 8:  monthString = "augusts";
                      break;

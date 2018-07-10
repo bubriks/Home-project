@@ -63,7 +63,7 @@ public class MeansUI extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		btnMakstjs = new JButton("Maks\u0101t\u0101js");
+		btnMakstjs = new JButton("Maksātājs");
 		GridBagConstraints gbc_btnMakstjs = new GridBagConstraints();
 		gbc_btnMakstjs.gridwidth = 3;
 		gbc_btnMakstjs.fill = GridBagConstraints.HORIZONTAL;
@@ -77,7 +77,7 @@ public class MeansUI extends JFrame {
 			}
 		});
 		
-		btnNewButton = new JButton("Sa\u0146\u0113m\u0113js");
+		btnNewButton = new JButton("Saņēmējs");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 3;
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
@@ -91,7 +91,7 @@ public class MeansUI extends JFrame {
 			}
 		});
 		
-		JLabel startText = new JLabel("Elektr\u012Bba");
+		JLabel startText = new JLabel("Elektrība");
 		GridBagConstraints gbc_lblMneaSkumaRdtji = new GridBagConstraints();
 		gbc_lblMneaSkumaRdtji.gridwidth = 3;
 		gbc_lblMneaSkumaRdtji.insets = new Insets(0, 0, 5, 5);

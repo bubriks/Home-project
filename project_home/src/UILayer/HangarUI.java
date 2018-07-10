@@ -16,10 +16,6 @@ public class HangarUI extends JFrame {
 	private JTextField textField_1;
 	private Double total=0.0,means=0.0,tenant_1=0.0,tenant_2=0.0,tenant_3=0.0,tenant_4=0.0,totalw=0.0,tenant_1w=0.0,tenant_2w=0.0,tenant_3w=0.0,tenant_4w=0.0;
 
-	public static void main(String[] args) {
-		new HangarUI();
-	}
-
 	public HangarUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -33,7 +29,7 @@ public class HangarUI extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Elektribas at\u0161\u0137ir\u012Bba: ");
+		JLabel lblNewLabel = new JLabel("Elektrības atšķirība: ");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
@@ -50,7 +46,7 @@ public class HangarUI extends JFrame {
 		textField.setColumns(10);
 		textField.setEditable(false);
 		
-		JLabel lblNewLabel_1 = new JLabel("\u016Adens at\u0161\u0137ir\u012Bba: ");
+		JLabel lblNewLabel_1 = new JLabel("Ūdens atšķirība: ");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel_1.gridx = 0;

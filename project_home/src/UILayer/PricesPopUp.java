@@ -41,7 +41,7 @@ public class PricesPopUp extends JFrame {
 		validWa=prices.getUdRate();
 		validKa=prices.getKaRate();
 		setAlwaysOnTop (true);
-		setTitle("Cenu mai�a");
+		setTitle("Cenu maiņa");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,7 +53,7 @@ public class PricesPopUp extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel_1 = new JLabel("Cena par vien\u012Bbu");
+		JLabel lblNewLabel_1 = new JLabel("Cena par vienību");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridwidth = 2;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
@@ -61,7 +61,7 @@ public class PricesPopUp extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JLabel lblNewLabel = new JLabel("Elektr\u012Bba");
+		JLabel lblNewLabel = new JLabel("Elektrība");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -89,7 +89,7 @@ public class PricesPopUp extends JFrame {
 			}
 		});
 		
-		JLabel lbldens = new JLabel("\u016Adens");
+		JLabel lbldens = new JLabel("Ūdens");
 		GridBagConstraints gbc_lbldens = new GridBagConstraints();
 		gbc_lbldens.anchor = GridBagConstraints.EAST;
 		gbc_lbldens.insets = new Insets(0, 0, 5, 5);
@@ -117,7 +117,7 @@ public class PricesPopUp extends JFrame {
 			}
 		});
 		
-		JLabel lblKanalizcija = new JLabel("Kanaliz\u0101cija");
+		JLabel lblKanalizcija = new JLabel("Kanalizācija");
 		GridBagConstraints gbc_lblKanalizcija = new GridBagConstraints();
 		gbc_lblKanalizcija.anchor = GridBagConstraints.EAST;
 		gbc_lblKanalizcija.insets = new Insets(0, 0, 5, 5);
@@ -145,7 +145,7 @@ public class PricesPopUp extends JFrame {
 			}
 		});
 		
-		JButton btnNewButton = new JButton("Saglab\u0101t");
+		JButton btnNewButton = new JButton("Saglabāt");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 2;
 		gbc_btnNewButton.gridx = 0;

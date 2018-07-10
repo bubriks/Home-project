@@ -16,14 +16,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class PricesUI extends JFrame {
 
-	private JPanel contentPane,content;
+	private JPanel contentPane;
 	private JTextField textField,textField_1,textField_2,textField_3;
 	private JButton btnCenuMaia;
 	private JLabel label;
@@ -47,7 +45,7 @@ public class PricesUI extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		btnCenuMaia = new JButton("Cenu Mai\u0146a");
+		btnCenuMaia = new JButton("Cenu Maiņa");
 		GridBagConstraints gbc_btnCenuMaia = new GridBagConstraints();
 		gbc_btnCenuMaia.gridwidth = 3;
 		gbc_btnCenuMaia.fill = GridBagConstraints.HORIZONTAL;
@@ -61,7 +59,7 @@ public class PricesUI extends JFrame {
 			}
 		});
 		
-		JLabel lblElektrba = new JLabel("Elektr\u012Bbas pat\u0113ri\u0146s");
+		JLabel lblElektrba = new JLabel("Elektrības patēriņš");
 		GridBagConstraints gbc_lblElektrba = new GridBagConstraints();
 		gbc_lblElektrba.gridwidth = 3;
 		gbc_lblElektrba.insets = new Insets(0, 0, 5, 5);
@@ -117,7 +115,7 @@ public class PricesUI extends JFrame {
 			}
 		});
 		
-		JLabel lbldensPatri = new JLabel("\u016Adens pat\u0113ri\u0146\u0161");
+		JLabel lbldensPatri = new JLabel("Ūdens patēriņš");
 		GridBagConstraints gbc_lbldensPatri = new GridBagConstraints();
 		gbc_lbldensPatri.gridwidth = 3;
 		gbc_lbldensPatri.insets = new Insets(0, 0, 5, 5);
