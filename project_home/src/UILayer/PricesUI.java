@@ -55,7 +55,7 @@ public class PricesUI extends JFrame {
 		contentPane.add(btnCenuMaia, gbc_btnCenuMaia);
 		btnCenuMaia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PricesPopUp.getInstance(prices);
+				PricesPopUp.getInstance(Report.getInstance().prices);
 			}
 		});
 		

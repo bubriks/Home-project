@@ -17,8 +17,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -194,25 +198,23 @@ public class TenantPopUp extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-			        BufferedReader file = new BufferedReader(new FileReader("info.txt"));
+					BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
 			        String line;
 			        StringBuffer inputBuffer = new StringBuffer();
-			        while ((line = file.readLine()) != null) {
+			        while ((line = in.readLine()) != null) {
 			            inputBuffer.append(line);
 			            inputBuffer.append('\n');
 			        }
+			        
 			        String inputStr = inputBuffer.toString();
-			        file.close();
-			        String name=textField.getText();
-		        	double rent = Double.parseDouble(textField_1.getText());
-		        	double heating = Double.parseDouble(textField_2.getText());
-		        	double garbage = Double.parseDouble(textField_3.getText());
-		        	double internet = Double.parseDouble(textField_4.getText());
-			        inputStr = inputStr.replace("\n"+tenant.getName()+","+tenant.getElectricity()+","+tenant.getWater()+","+tenant.getRent()+","+tenant.getHeating()+","+tenant.getGarbage()+","+tenant.getInternet()+".",
-			        		"\n"+name+","+tenant.getElectricity()+","+tenant.getWater()+","+rent+","+heating+","+garbage+","+internet+"."); 
-			        FileOutputStream fileOut = new FileOutputStream("info.txt");
-			        fileOut.write(inputStr.getBytes());
-			        fileOut.close();
+			        in.close();
+			        
+			        inputStr = inputStr.replace("\n"+tenant.getName()+"- "+tenant.getElectricity()+","+tenant.getWater()+","+tenant.getRent()+","+tenant.getHeating()+","+tenant.getGarbage()+","+tenant.getInternet()+";",
+			        		"\n"+textField.getText()+"- "+tenant.getElectricity()+","+tenant.getWater()+","+Double.parseDouble(textField_1.getText())+","+Double.parseDouble(textField_2.getText())+","+Double.parseDouble(textField_3.getText())+","+Double.parseDouble(textField_4.getText())+";"); 
+			        
+			        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
+			        	writer.write(inputStr);
+			        }
 			    } catch (Exception e) {
 			        System.out.println("Problem reading file.");
 			    }

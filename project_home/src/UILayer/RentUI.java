@@ -32,25 +32,15 @@ public class RentUI extends JFrame {
 	private JTextField elstart,elend,ustart,uend;
 	private JLabel lblNewLabel,lblNewLabel_1,lblNewLabel_2,lblNewLabel_3;
 	private JButton btnVrds;
-	private SimpleDateFormat fd;
-	private Date date;
-	private String dateString;
-	private HSSFWorkbook workbook;
 	private Tenant tenant;
-	private Prices prices;
 	private double validElStart,validElEnd,validUdStart,validUdEnd;
 	
-	public RentUI(HSSFWorkbook workbook,Tenant tenant,Prices prices,SimpleDateFormat fd,Date date,String dateString,int index){
+	public RentUI(Tenant tenant,int index){
 		validElStart=tenant.getElectricity();
 		validElEnd=0.0;
 		validUdStart=tenant.getWater();
 		validUdEnd=0.0;
-		this.fd = fd;
-		this.date= date;
-		this.dateString=dateString;
 		this.tenant=tenant;
-		this.prices=prices;
-		this.workbook=workbook;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -213,7 +203,7 @@ public class RentUI extends JFrame {
 	public boolean writeWord(Design design){
 		if(Double.parseDouble(elstart.getText())<=Double.parseDouble(elend.getText()) && Double.parseDouble(ustart.getText())<=Double.parseDouble(uend.getText())){
 			try{
-				new RentControler(Double.parseDouble(elstart.getText()),Double.parseDouble(elend.getText()),Double.parseDouble(ustart.getText()),Double.parseDouble(uend.getText()),workbook,tenant,prices,fd,date,dateString,design);}
+				new RentControler(Double.parseDouble(elstart.getText()),Double.parseDouble(elend.getText()),Double.parseDouble(ustart.getText()),Double.parseDouble(uend.getText()),Report.getInstance().workbook,tenant,Report.getInstance().prices,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design);}
     		catch(Exception e){
     			return false;
     		}

@@ -32,25 +32,15 @@ public class MeansUI extends JFrame {
 	private JTextField start,end;
 	private JButton btnMakstjs;
 	private JButton btnNewButton;
-	private HSSFWorkbook workbook;
-	private SimpleDateFormat fd;
-	private Date date;
-	private String dateString;
-	private Prices prices;
 	private Reciever reciever;
 	private Owner owner;
 	private double validStart,validEnd;
 
-	public MeansUI(HSSFWorkbook workbook,SimpleDateFormat fd,Date date,String dateString,Owner owner,Reciever reciever,Prices prices,Double electricity) {
+	public MeansUI(Owner owner,Reciever reciever,Double electricity) {
 		validStart=electricity;
 		validEnd=0.0;
-		this.fd = fd;
-		this.date= date;
-		this.dateString=dateString;
-		this.prices=prices;
 		this.owner=owner;
 		this.reciever=reciever;
-		this.workbook=workbook;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -155,7 +145,7 @@ public class MeansUI extends JFrame {
 	public boolean writeWord(Design design){
     	if(Double.parseDouble(start.getText())<=Double.parseDouble(end.getText())){
     		try{
-    			new Means(Double.parseDouble(start.getText()),Double.parseDouble(end.getText()),workbook,fd,date,dateString,design,prices,reciever,owner);}
+    			new Means(Double.parseDouble(start.getText()),Double.parseDouble(end.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,Report.getInstance().prices,reciever,owner);}
     		catch(Exception e){
     			return false;
     		}

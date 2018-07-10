@@ -17,8 +17,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -154,23 +158,23 @@ public class PricesPopUp extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 try {
-				        BufferedReader file = new BufferedReader(new FileReader("info.txt"));
+					 	BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
 				        String line;
 				        StringBuffer inputBuffer = new StringBuffer();
-				        while ((line = file.readLine()) != null) {
+				        while ((line = in.readLine()) != null) {
 				            inputBuffer.append(line);
 				            inputBuffer.append('\n');
 				        }
+				        
 				        String inputStr = inputBuffer.toString();
-				        file.close();
-				        double elRate = Double.parseDouble(textField.getText());
-			        	double udRate = Double.parseDouble(textField_1.getText());
-			        	double kaRate = Double.parseDouble(textField_2.getText());
-				        inputStr = inputStr.replace("\nCenas- "+prices.getElRate()+","+prices.getUdRate()+","+prices.getKaRate()+","+prices.getElLast()+","+prices.getUdLast()+".",
-				        		"\nCenas- "+elRate+","+udRate+","+kaRate+","+prices.getElLast()+","+prices.getUdLast()+"."); 
-				        FileOutputStream fileOut = new FileOutputStream("info.txt");
-				        fileOut.write(inputStr.getBytes());
-				        fileOut.close();
+				        in.close();
+				        
+				        inputStr = inputStr.replace("\nCenas- "+prices.getElRate()+","+prices.getUdRate()+","+prices.getKaRate()+","+prices.getElLast()+","+prices.getUdLast()+";",
+				        		"\nCenas- "+Double.parseDouble(textField.getText())+","+Double.parseDouble(textField_1.getText())+","+Double.parseDouble(textField_2.getText())+","+prices.getElLast()+","+prices.getUdLast()+";"); 
+				        
+				        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
+				        	writer.write(inputStr);
+				        }
 				    } catch (Exception e) {
 				        System.out.println("Problem reading file.");
 				    }

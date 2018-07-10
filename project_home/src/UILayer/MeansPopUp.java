@@ -16,8 +16,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -172,20 +176,23 @@ public class MeansPopUp extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-			        BufferedReader file = new BufferedReader(new FileReader("info.txt"));
+					BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
 			        String line;
 			        StringBuffer inputBuffer = new StringBuffer();
-			        while ((line = file.readLine()) != null) {
+			        while ((line = in.readLine()) != null) {
 			            inputBuffer.append(line);
 			            inputBuffer.append('\n');
 			        }
+			        
 			        String inputStr = inputBuffer.toString();
-			        file.close();
-			        inputStr = inputStr.replace("\nOwner- "+owner.getName()+","+owner.getAdress()+" ,"+owner.getBankName()+","+owner.getCode()+","+owner.getRekvizit()+","+owner.getInfo()+".",
-			        		"\nOwner- "+textField.getText()+","+textField_1.getText()+" ,"+textField_2.getText()+","+textField_3.getText()+","+textField_4.getText()+","+textField_5.getText()+"."); 
-			        FileOutputStream fileOut = new FileOutputStream("info.txt");
-			        fileOut.write(inputStr.getBytes());
-			        fileOut.close();
+			        in.close();
+			        
+			        inputStr = inputStr.replace("\nOwner- "+owner.getName()+","+owner.getAdress()+" ,"+owner.getBankName()+","+owner.getCode()+","+owner.getRekvizit()+","+owner.getInfo()+";",
+			        		"\nOwner- "+textField.getText()+","+textField_1.getText()+" ,"+textField_2.getText()+","+textField_3.getText()+","+textField_4.getText()+","+textField_5.getText()+";");
+			        
+			        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
+			        	writer.write(inputStr);
+			        }
 			    } catch (Exception e) {
 			        System.out.println("Problem reading file.");
 			    }
@@ -297,20 +304,23 @@ public class MeansPopUp extends JFrame {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-				        BufferedReader file = new BufferedReader(new FileReader("info.txt"));
+						BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
 				        String line;
 				        StringBuffer inputBuffer = new StringBuffer();
-				        while ((line = file.readLine()) != null) {
+				        while ((line = in.readLine()) != null) {
 				            inputBuffer.append(line);
 				            inputBuffer.append('\n');
 				        }
+				        
 				        String inputStr = inputBuffer.toString();
-				        file.close();
-				        inputStr = inputStr.replace("\nReciever- "+reciever.getName()+","+reciever.getAdress()+" ,"+reciever.getRekvizit()+","+reciever.getInfo()+".",
-				        		"\nReciever- "+textField.getText()+","+textField_1.getText()+" ,"+textField_4.getText()+","+textField_5.getText()+"."); 
-				        FileOutputStream fileOut = new FileOutputStream("info.txt");
-				        fileOut.write(inputStr.getBytes());
-				        fileOut.close();
+				        in.close();
+				        
+				        inputStr = inputStr.replace("\nMeans- "+reciever.getName()+","+reciever.getAdress()+" ,"+reciever.getRekvizit()+","+reciever.getInfo()+","+Report.getInstance().electricity+";",
+				        		"\nMeans- "+textField.getText()+","+textField_1.getText()+" ,"+textField_4.getText()+","+textField_5.getText()+","+Report.getInstance().electricity+";");
+				        				        
+				        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
+				        	writer.write(inputStr);
+				        }
 				    } catch (Exception e) {
 				        System.out.println("Problem reading file.");
 				    }
