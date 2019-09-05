@@ -11,38 +11,37 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import ModelLayer.Design;
 import ModelLayer.Owner;
 import ModelLayer.Prices;
-import ModelLayer.Reciever;
+import ModelLayer.Receiver;
 
 public class Means {
 	
 	private SimpleDateFormat fd;
 	private String dateString;
 	
-	public Means(Double start,Double end,HSSFWorkbook workbook,SimpleDateFormat fd,Date date,String dateString,Design design,Prices prices,Reciever reciever,Owner owner){
+	public Means(Double start, Double end, HSSFWorkbook workbook, SimpleDateFormat fd, Date date, String dateString, Design design, Prices prices, Receiver receiver, Owner owner){
 		this.fd = fd;
 		this.dateString=dateString;
 		HSSFSheet sheet = workbook.createSheet("Means");
-		ArrayList<Object[]> data=new ArrayList<Object[]>();
+		ArrayList<Object[]> data= new ArrayList<>();
 		data.add(new Object[]{"Rēķins - Faktūra",dateString.substring(6, 10)+dateString.substring(3, 5)});//0
 		data.add(new Object[]{"Datums",getDate()});//1
 		data.add(new Object[]{"","",""});//2
 		data.add(new Object[]{"Preču nosūtītājs",owner.getName(),"",""});//3
-		data.add(new Object[]{"Adrese",owner.getAdress(),"",""});//4
-		data.add(new Object[]{"Izsniegts",owner.getAdress(),"",""});//5
+		data.add(new Object[]{"Adrese",owner.getAddress(),"",""});//4
+		data.add(new Object[]{"Izsniegts",owner.getAddress(),"",""});//5
 		data.add(new Object[]{"Norēķinu rekvizīti",owner.getBankName(),owner.getCode(),""});//6
-		data.add(new Object[]{"Norēķinu rekvizīti",owner.getRekvizit(),owner.getInfo(),""});//7
-		data.add(new Object[]{"Preču saņēmējs",reciever.getName(),reciever.getInfo(),""});//8
-		data.add(new Object[]{"Adrese",reciever.getAdress(),"",""});//9
-		data.add(new Object[]{"Saņemts",reciever.getAdress(),"",""});//10
+		data.add(new Object[]{"Norēķinu rekvizīti",owner.GetInvoice(),owner.getInfo(),""});//7
+		data.add(new Object[]{"Preču saņēmējs", receiver.getName(), receiver.getInfo(),""});//8
+		data.add(new Object[]{"Adrese", receiver.getAddress(),"",""});//9
+		data.add(new Object[]{"Saņemts", receiver.getAddress(),"",""});//10
 		data.add(new Object[]{"Piegādes datums",getDeliveryDates(date),"",""});//11
-		data.add(new Object[]{"Norēķinu rekvizīti",reciever.getRekvizit(),"",""});//12
+		data.add(new Object[]{"Norēķinu rekvizīti", receiver.getInvoice(),"",""});//12
 		data.add(new Object[]{"Samaksas veids un kārtība:","Ar pārskaitījumu līdz "+getDueDate(date),"",""});//13
 		data.add(new Object[]{"Mērijumi",start,end,""});//14
 		data.add(new Object[]{"Nosaukums","Mērvienība","Patērēts","Cena"});//15
-		data.add(new Object[]{"Maksa par elektroenerģiju","Kwh",0,prices.getElRate()});//16
+		data.add(new Object[]{"Maksa par elektroenerģiju","Kwh",0,prices.getElectricityRate()});//16
 		data.add(new Object[]{"Kopā:","","","€"});//17
 		data.add(new Object[]{"","","",""});//18
 		data.add(new Object[]{"","",""});//19
@@ -149,13 +148,13 @@ public class Means {
 	}
 	
 	private String nameNumber(Double number2,Double number1,double price){
-		Double number=(number1-number2)*price;
-		String text="";
+		double number=(number1-number2)*price;
+		String text;
 		DecimalFormat f = new DecimalFormat("##.00");
-		Double cent=number-number.intValue();
+		Double cent=number- (int) number;
 		String cents=f.format(cent).substring(1)+" centi";
 		if(number>=0){
-			switch (number.intValue()%10) {
+			switch ((int) number %10) {
 	        case 1:  text = "viens";
 	                 break;
 	        case 2:  text = "divi";
@@ -178,7 +177,7 @@ public class Means {
 	                 break;
 			}
 			if(number>9){
-				switch (number.intValue()%100-number.intValue()%10) {
+				switch ((int) number %100- (int) number %10) {
 		        case 10:  text = "desmit "+text;
 		                 break;
 		        case 20:  text = "divdesmit "+text;
@@ -201,7 +200,7 @@ public class Means {
 		                 break;
 				}
 				if(number>99){
-					switch (number.intValue()%1000-number.intValue()%100) {
+					switch ((int) number %1000- (int) number %100) {
 			        case 100:  text = "viens simts "+text;
 			                 break;
 			        case 200:  text = "divi simti "+text;
@@ -228,7 +227,7 @@ public class Means {
 							 return "Pārāk liels skaitlis!";
 						}
 						else{
-							switch (number.intValue()%10000-number.intValue()%1000) {
+							switch ((int) number %10000- (int) number %1000) {
 							case 1000:  text = "viens tūkstotis "+text;
 				                 break;
 							case 2000:  text = "divi tūkstotis "+text;

@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ModelLayer.Owner;
-import ModelLayer.Reciever;
+import ModelLayer.Receiver;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -18,7 +18,6 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -26,26 +25,26 @@ import java.nio.charset.StandardCharsets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class MeansPopUp extends JFrame {
+class MeansPopUp extends JFrame {
 
 	private JPanel contentPane;
 	private static MeansPopUp instance=null;
 
-	protected static MeansPopUp getInstance(Owner owner) {
+	static MeansPopUp getInstance(Owner owner) {
 		if (instance == null){
 			instance = new MeansPopUp(owner);
 		}
 	    return instance; 
 	 }
 	
-	protected static MeansPopUp getInstance(Reciever reciever) {
+	static MeansPopUp getInstance(Receiver receiver) {
 		if (instance == null){
-			instance = new MeansPopUp(reciever);
+			instance = new MeansPopUp(receiver);
 		}
 	    return instance; 
 	 }
 
-	 protected MeansPopUp(Owner owner) {
+	 private MeansPopUp(Owner owner) {
 		setAlwaysOnTop (true);
 		setTitle("Saņēmējs");
 		setBounds(100, 100, 450, 300);
@@ -92,7 +91,7 @@ public class MeansPopUp extends JFrame {
 		gbc_textField_1.gridx = 1;
 		gbc_textField_1.gridy = 1;
 		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setText(owner.getAdress());
+		textField_1.setText(owner.getAddress());
 		textField_1.setColumns(10);
 		
 		JLabel lblBank = new JLabel("Banka");
@@ -146,7 +145,7 @@ public class MeansPopUp extends JFrame {
 		gbc_textField_4.gridx = 1;
 		gbc_textField_4.gridy = 4;
 		contentPane.add(textField_4, gbc_textField_4);
-		textField_4.setText(owner.getRekvizit());
+		textField_4.setText(owner.GetInvoice());
 		textField_4.setColumns(10);
 		
 		JLabel lblInfo = new JLabel("Bankas info");
@@ -187,7 +186,7 @@ public class MeansPopUp extends JFrame {
 			        String inputStr = inputBuffer.toString();
 			        in.close();
 			        
-			        inputStr = inputStr.replace("\nOwner- "+owner.getName()+","+owner.getAdress()+" ,"+owner.getBankName()+","+owner.getCode()+","+owner.getRekvizit()+","+owner.getInfo()+";",
+			        inputStr = inputStr.replace("\nOwner- "+owner.getName()+","+owner.getAddress()+" ,"+owner.getBankName()+","+owner.getCode()+","+owner.GetInvoice()+","+owner.getInfo()+";",
 			        		"\nOwner- "+textField.getText()+","+textField_1.getText()+" ,"+textField_2.getText()+","+textField_3.getText()+","+textField_4.getText()+","+textField_5.getText()+";");
 			        
 			        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
@@ -209,7 +208,7 @@ public class MeansPopUp extends JFrame {
 	    });
 	}
 	 
-	 protected MeansPopUp(Reciever reciever) {
+	 private MeansPopUp(Receiver receiver) {
 			setAlwaysOnTop (true);
 			setTitle("Maksātājs");
 			setBounds(100, 100, 450, 300);
@@ -238,7 +237,7 @@ public class MeansPopUp extends JFrame {
 			gbc_textField.gridx = 1;
 			gbc_textField.gridy = 0;
 			contentPane.add(textField, gbc_textField);
-			textField.setText(reciever.getName());
+			textField.setText(receiver.getName());
 			textField.setColumns(10);
 			
 			JLabel lblAddress = new JLabel("Adrese");
@@ -256,7 +255,7 @@ public class MeansPopUp extends JFrame {
 			gbc_textField_1.gridx = 1;
 			gbc_textField_1.gridy = 1;
 			contentPane.add(textField_1, gbc_textField_1);
-			textField_1.setText(reciever.getAdress());
+			textField_1.setText(receiver.getAddress());
 			textField_1.setColumns(10);
 			
 			JLabel lblRekviz = new JLabel("Rekvizīti");
@@ -274,7 +273,7 @@ public class MeansPopUp extends JFrame {
 			gbc_textField_4.gridx = 1;
 			gbc_textField_4.gridy = 4;
 			contentPane.add(textField_4, gbc_textField_4);
-			textField_4.setText(reciever.getRekvizit());
+			textField_4.setText(receiver.getInvoice());
 			textField_4.setColumns(10);
 			
 			JLabel lblInfo = new JLabel("Bankas info");
@@ -292,7 +291,7 @@ public class MeansPopUp extends JFrame {
 			gbc_textField_5.gridx = 1;
 			gbc_textField_5.gridy = 5;
 			contentPane.add(textField_5, gbc_textField_5);
-			textField_5.setText(reciever.getInfo());
+			textField_5.setText(receiver.getInfo());
 			textField_5.setColumns(10);
 			
 			JButton btnNewButton = new JButton("Saglabāt");
@@ -315,7 +314,7 @@ public class MeansPopUp extends JFrame {
 				        String inputStr = inputBuffer.toString();
 				        in.close();
 				        
-				        inputStr = inputStr.replace("\nMeans- "+reciever.getName()+","+reciever.getAdress()+" ,"+reciever.getRekvizit()+","+reciever.getInfo()+","+Report.getInstance().electricity+";",
+				        inputStr = inputStr.replace("\nMeans- "+ receiver.getName()+","+ receiver.getAddress()+" ,"+ receiver.getInvoice()+","+ receiver.getInfo()+","+Report.getInstance().electricity+";",
 				        		"\nMeans- "+textField.getText()+","+textField_1.getText()+" ,"+textField_4.getText()+","+textField_5.getText()+","+Report.getInstance().electricity+";");
 				        				        
 				        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){

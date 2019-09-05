@@ -2,12 +2,12 @@ package ModelLayer;
 
 public class Tenant extends Person{
 	
-	private double elLast,udLast,rent,heating,garbage,internet;
+	private double electricity, water, rent, heating, garbage, internet;
 	
-	public Tenant(String name,double elLast,double udLast,double rent,double heating,double garbage,double internet){
+	public Tenant(String name, double electricity, double water, double rent, double heating, double garbage, double internet){
 		super(name);
-		this.elLast=elLast;
-		this.udLast=udLast;
+		this.electricity = electricity;
+		this.water = water;
 		this.rent=rent;
 		this.heating=heating;
 		this.garbage=garbage;
@@ -15,25 +15,20 @@ public class Tenant extends Person{
 	}
 	
 	public double getElectricity() {
-		return elLast;
+		return electricity;
 	}
-	
 	public double getWater() {
-		return udLast;
+		return water;
 	}
-	
 	public double getRent() {
 		return rent;
 	}
-	
 	public double getHeating() {
 		return heating;
 	}
-
 	public double getGarbage() {
 		return garbage;
 	}
-	
 	public double getInternet() {
 		return internet;
 	}

@@ -4,13 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
 import ControlLayer.Means;
-import ModelLayer.Design;
+import ControlLayer.Design;
 import ModelLayer.Owner;
-import ModelLayer.Prices;
-import ModelLayer.Reciever;
+import ModelLayer.Receiver;
 
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
@@ -20,27 +17,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-public class MeansUI extends JFrame {
+class MeansUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField start,end;
 	private JButton btnMakstjs;
 	private JButton btnNewButton;
-	private Reciever reciever;
+	private Receiver receiver;
 	private Owner owner;
 	private double validStart,validEnd;
 
-	public MeansUI(Owner owner,Reciever reciever,Double electricity) {
+	MeansUI(Owner owner, Receiver receiver, Double electricity) {
 		validStart=electricity;
 		validEnd=0.0;
 		this.owner=owner;
-		this.reciever=reciever;
+		this.receiver = receiver;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -63,7 +58,7 @@ public class MeansUI extends JFrame {
 		contentPane.add(btnMakstjs, gbc_btnMakstjs);
 		btnMakstjs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MeansPopUp.getInstance(reciever);
+				MeansPopUp.getInstance(receiver);
 			}
 		});
 		
@@ -138,14 +133,14 @@ public class MeansUI extends JFrame {
 		});
 	}
 	
-	public String getElectricity(){
+	String getElectricity(){
 		return end.getText();
 	}
 	
-	public boolean writeWord(Design design){
+	boolean writeWord(Design design){
     	if(Double.parseDouble(start.getText())<=Double.parseDouble(end.getText())){
     		try{
-    			new Means(Double.parseDouble(start.getText()),Double.parseDouble(end.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,Report.getInstance().prices,reciever,owner);}
+    			new Means(Double.parseDouble(start.getText()),Double.parseDouble(end.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,Report.getInstance().prices, receiver,owner);}
     		catch(Exception e){
     			return false;
     		}
@@ -156,7 +151,7 @@ public class MeansUI extends JFrame {
     	}
 	}
 	
-	public JPanel getMeans(){
+	JPanel getMeans(){
 		return contentPane;
 	}
 }

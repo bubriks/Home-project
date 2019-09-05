@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class PricesUI extends JFrame {
+class PricesUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField,textField_1,textField_2,textField_3;
@@ -28,10 +28,10 @@ public class PricesUI extends JFrame {
 	private JLabel lblNewLabel;
 	private double validElStart,validElEnd,validUdStart,validUdEnd;
 
-	public PricesUI(Prices prices){
-		validElStart=prices.getElLast();
+	PricesUI(Prices prices){
+		validElStart=prices.getElectricity();
 		validElEnd=0.0;
-		validUdStart=prices.getUdLast();
+		validUdStart=prices.getWater();
 		validUdEnd=0.0;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -172,15 +172,15 @@ public class PricesUI extends JFrame {
 		});
 	}
 	
-	public String getElectricity(){
+	String getElectricity(){
 		return textField_2.getText();
 	}
 	
-	public String getWater(){
+	String getWater(){
 		return textField_3.getText();
 	}
 	
-	public JPanel getPrices(){
+	JPanel getPrices(){
 		return contentPane;
 	}
 }

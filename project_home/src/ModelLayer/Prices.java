@@ -2,33 +2,29 @@ package ModelLayer;
 
 public class Prices {
 	
-	private Double elRate,elLast,udRate,kaRate,udLast;
+	private Double electricityRate, electricity, waterRate, sewerageRate, water;
 	
-	public Prices(Double elRate,Double elLast,Double udRate,Double kaRate,Double udLast){
-		this.elRate=elRate;
-		this.elLast=elLast;
-		this.udRate=udRate;
-		this.kaRate=kaRate;
-		this.udLast=udLast;
-	}
-	
-	public Double getElRate(){
-		return elRate;
-	}
-
-	public Double getElLast(){
-		return elLast;
+	public Prices(Double electricityRate, Double electricity, Double waterRate, Double sewerageRate, Double water){
+		this.electricityRate = electricityRate;
+		this.electricity = electricity;
+		this.waterRate = waterRate;
+		this.sewerageRate = sewerageRate;
+		this.water = water;
 	}
 	
-	public Double getUdRate(){
-		return udRate;
+	public Double getElectricityRate(){
+		return electricityRate;
 	}
-	
-	public Double getKaRate(){
-		return kaRate;
+	public Double getElectricity(){
+		return electricity;
 	}
-
-	public Double getUdLast(){
-		return udLast;
+	public Double getWaterRate(){
+		return waterRate;
+	}
+	public Double getSewerageRate(){
+		return sewerageRate;
+	}
+	public Double getWater(){
+		return water;
 	}
 }

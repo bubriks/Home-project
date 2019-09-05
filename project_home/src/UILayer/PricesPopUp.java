@@ -19,7 +19,6 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -27,23 +26,23 @@ import java.nio.charset.StandardCharsets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class PricesPopUp extends JFrame {
+class PricesPopUp extends JFrame {
 
 	private JPanel contentPane;
 	private static PricesPopUp instance=null;
 	private double validEl,validWa,validKa;
 
-	protected static PricesPopUp getInstance(Prices prices) {
+	static PricesPopUp getInstance(Prices prices) {
 		if (instance == null){
 			instance = new PricesPopUp(prices);
 		}
 	    return instance; 
 	 }
 
-	 protected PricesPopUp(Prices prices) {
-		validEl=prices.getElRate();
-		validWa=prices.getUdRate();
-		validKa=prices.getKaRate();
+	 private PricesPopUp(Prices prices) {
+		validEl=prices.getElectricityRate();
+		validWa=prices.getWaterRate();
+		validKa=prices.getSewerageRate();
 		setAlwaysOnTop (true);
 		setTitle("Cenu maiņa");
 		setBounds(100, 100, 450, 300);
@@ -169,8 +168,8 @@ public class PricesPopUp extends JFrame {
 				        String inputStr = inputBuffer.toString();
 				        in.close();
 				        
-				        inputStr = inputStr.replace("\nCenas- "+prices.getElRate()+","+prices.getUdRate()+","+prices.getKaRate()+","+prices.getElLast()+","+prices.getUdLast()+";",
-				        		"\nCenas- "+Double.parseDouble(textField.getText())+","+Double.parseDouble(textField_1.getText())+","+Double.parseDouble(textField_2.getText())+","+prices.getElLast()+","+prices.getUdLast()+";"); 
+				        inputStr = inputStr.replace("\nCenas- "+prices.getElectricityRate()+","+prices.getWaterRate()+","+prices.getSewerageRate()+","+prices.getElectricity()+","+prices.getWater()+";",
+				        		"\nCenas- "+Double.parseDouble(textField.getText())+","+Double.parseDouble(textField_1.getText())+","+Double.parseDouble(textField_2.getText())+","+prices.getElectricity()+","+prices.getWater()+";");
 				        
 				        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
 				        	writer.write(inputStr);

@@ -4,11 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
 import ControlLayer.RentControler;
-import ModelLayer.Design;
-import ModelLayer.Prices;
+import ControlLayer.Design;
 import ModelLayer.Tenant;
 
 import java.awt.GridBagLayout;
@@ -21,12 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 
-public class RentUI extends JFrame {
+class RentUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField elstart,elend,ustart,uend;
@@ -35,7 +30,7 @@ public class RentUI extends JFrame {
 	private Tenant tenant;
 	private double validElStart,validElEnd,validUdStart,validUdEnd;
 	
-	public RentUI(Tenant tenant,int index){
+	RentUI(Tenant tenant, int index){
 		validElStart=tenant.getElectricity();
 		validElEnd=0.0;
 		validUdStart=tenant.getWater();
@@ -188,19 +183,19 @@ public class RentUI extends JFrame {
 		});
 	}
 	
-	public Tenant getTenant(){
+	Tenant getTenant(){
 		return tenant;
 	}
 	
-	public String getElectricity(){
+	String getElectricity(){
 		return elend.getText();
 	}
 	
-	public String getWater(){
+	String getWater(){
 		return uend.getText();
 	}
 	
-	public boolean writeWord(Design design){
+	boolean writeWord(Design design){
 		if(Double.parseDouble(elstart.getText())<=Double.parseDouble(elend.getText()) && Double.parseDouble(ustart.getText())<=Double.parseDouble(uend.getText())){
 			try{
 				new RentControler(Double.parseDouble(elstart.getText()),Double.parseDouble(elend.getText()),Double.parseDouble(ustart.getText()),Double.parseDouble(uend.getText()),Report.getInstance().workbook,tenant,Report.getInstance().prices,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design);}
@@ -214,7 +209,7 @@ public class RentUI extends JFrame {
 		}
 	}
 	
-	public JPanel getRent(){
+	JPanel getRent(){
 		return contentPane;
 	}
 }

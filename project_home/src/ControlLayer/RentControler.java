@@ -11,7 +11,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import ModelLayer.Design;
 import ModelLayer.Prices;
 import ModelLayer.Tenant;
 
@@ -25,7 +24,7 @@ public class RentControler {
 		this.fd = fd;
 		this.dateString=dateString;
 		HSSFSheet sheet = workbook.createSheet(tenant.getName());
-		ArrayList<Object[]> data=new ArrayList<Object[]>();
+		ArrayList<Object[]> data= new ArrayList<>();
 		data.add(new Object[]{"Rēķins - Faktūra",dateString.substring(6, 10)+dateString.substring(3, 5)});//0
 		data.add(new Object[]{"Datums",getDate()});//1
 		data.add(new Object[]{"","",""});//2
@@ -35,9 +34,9 @@ public class RentControler {
 		data.add(new Object[]{"Ūdens skaitītāja rādījumi",ustart,uend,""});//6
 		data.add(new Object[]{"Kanalizācijas skaitītāja rādījumi",ustart,uend,""});//7
 		data.add(new Object[]{"Nosaukums","Mērvienība","Patērēts","Cena"});//8
-		data.add(new Object[]{"Elektrība","Kwh",tenant.getElectricity(),prices.getElRate()});//9
-		data.add(new Object[]{"Ūdens","m3",tenant.getWater(),prices.getUdRate()});//10
-		data.add(new Object[]{"Kanalizācija","m3",tenant.getWater(),prices.getKaRate()});//11
+		data.add(new Object[]{"Elektrība","Kwh",tenant.getElectricity(),prices.getElectricityRate()});//9
+		data.add(new Object[]{"Ūdens","m3",tenant.getWater(),prices.getWaterRate()});//10
+		data.add(new Object[]{"Kanalizācija","m3",tenant.getWater(),prices.getSewerageRate()});//11
 		data.add(new Object[]{"Telpu īre","","",tenant.getRent()});//12
 		if(date.getMonth()+1<=5 && date.getMonth()+1>=9){
 			data.add(new Object[]{"Apkure","","",tenant.getHeating()});//13
@@ -144,7 +143,7 @@ public class RentControler {
 	}
 	
 	private String nameNumber(Double number){
-		String text="";
+		String text;
 		DecimalFormat f = new DecimalFormat("##.00");
 		Double cent=number-number.intValue();
 		String cents=f.format(cent).substring(1)+" centi";

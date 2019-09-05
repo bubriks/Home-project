@@ -2,33 +2,30 @@ package ModelLayer;
 
 public class Owner extends Person{
 	
-	private String adress,bankName,code,rekvizit,info;
+	private String address,bankName,code,invoice,info;
 	
-	public Owner(String name,String adress,String bankName,String code,String rekvizit,String info){
+	public Owner(String name, String address, String bankName, String code, String invoice, String info){
 		super(name);
-		this.adress=adress;
+		this.address = address;
 		this.bankName=bankName;
 		this.code=code;
-		this.rekvizit=rekvizit;
+		this.invoice=invoice;
 		this.info=info;
 	}
-	
-	public String getRekvizit() {
-		return rekvizit;
-	}
 
-	public String getInfo() {
-		return info;
+	public String getAddress() {
+		return address;
 	}
-
+	public String getBankName() {
+		return bankName;
+	}
 	public String getCode() {
 		return code;
 	}
-	public String getAdress() {
-		return adress;
+	public String GetInvoice() {
+		return invoice;
 	}
-
-	public String getBankName() {
-		return bankName;
+	public String getInfo() {
+		return info;
 	}
 }
