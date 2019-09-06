@@ -58,9 +58,9 @@ public class Report extends JFrame {
 	HSSFWorkbook workbook;
 	private static Report instance=null;
 	private MeansUI means;
-	private RentUI rent_1,rent_2,rent_3,rent_4;
+	RentUI rent_1,rent_2,rent_3,rent_4;
 	private FileOutputStream out;
-	private PricesUI price;
+	PricesUI price;
 	private HangarUI hangar=new HangarUI();
 
 	public static void main(String[] args) {
@@ -72,7 +72,10 @@ public class Report extends JFrame {
 			instance = new Report();
 		}
 	    return instance; 
-	 }
+	}
+	//todo use prev month values (dont have random file)
+	//todo clean code
+	//todo improve UI
 
 	private Report() {
 		info();
@@ -179,9 +182,9 @@ public class Report extends JFrame {
 					        in.close();
 					        
 					        inputStr = inputStr.replace("\nMeans- "+ receiver.getName()+","+ receiver.getAddress()+" ,"+ receiver.getInvoice()+","+ receiver.getInfo()+","+electricity+";",
-					        		"\nMeans- "+ receiver.getName()+","+ receiver.getAddress()+" ,"+ receiver.getInvoice()+","+ receiver.getInfo()+","+Double.parseDouble(means.getElectricity())+";");
+					        		"\nMeans- "+ receiver.getName()+","+ receiver.getAddress()+" ,"+ receiver.getInvoice()+","+ receiver.getInfo()+","+Double.parseDouble(means.ElectricityEndField.toString())+";");
 					        inputStr = inputStr.replace("\nCenas- "+prices.getElectricityRate()+","+prices.getWaterRate()+","+prices.getSewerageRate()+","+prices.getElectricity()+","+prices.getWater()+";",
-					        		"\nCenas- "+prices.getElectricityRate()+","+prices.getWaterRate()+","+prices.getSewerageRate()+","+Double.parseDouble(price.getElectricity())+","+Double.parseDouble(price.getWater())+";");
+					        		"\nCenas- "+prices.getElectricityRate()+","+prices.getWaterRate()+","+prices.getSewerageRate()+","+Double.parseDouble(price.textField_2.toString())+","+Double.parseDouble(price.textField_3.toString())+";");
 					        inputStr = inputStr.replace("\n"+rent_1.getTenant().getName()+"- "+rent_1.getTenant().getElectricity()+","+rent_1.getTenant().getWater()+","+rent_1.getTenant().getRent()+","+rent_1.getTenant().getHeating()+","+rent_1.getTenant().getGarbage()+","+rent_1.getTenant().getInternet()+";",
 					        		"\n"+rent_1.getTenant().getName()+"- "+Double.parseDouble(rent_1.getElectricity())+","+Double.parseDouble(rent_1.getWater())+","+rent_1.getTenant().getRent()+","+rent_1.getTenant().getHeating()+","+rent_1.getTenant().getGarbage()+","+rent_1.getTenant().getInternet()+";");
 					        inputStr = inputStr.replace("\n"+rent_2.getTenant().getName()+"- "+rent_2.getTenant().getElectricity()+","+rent_2.getTenant().getWater()+","+rent_2.getTenant().getRent()+","+rent_2.getTenant().getHeating()+","+rent_2.getTenant().getGarbage()+","+rent_2.getTenant().getInternet()+";",
@@ -321,7 +324,7 @@ public class Report extends JFrame {
 		in.close();
 	
 	    price=new PricesUI(prices);
-	    means=new MeansUI(owner, receiver,electricity);
+	    means=new MeansUI(electricity);
 		rent_1=new RentUI(tenants.poll(),1);
 		rent_2=new RentUI(tenants.poll(),2);
 		rent_3=new RentUI(tenants.poll(),3);

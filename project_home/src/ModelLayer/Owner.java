@@ -1,31 +1,19 @@
 package ModelLayer;
 
-public class Owner extends Person{
+public class Owner extends BusinessPerson{
 	
-	private String address,bankName,code,invoice,info;
+	private String bankName,code;
 	
 	public Owner(String name, String address, String bankName, String code, String invoice, String info){
-		super(name);
-		this.address = address;
+		super(name, address, invoice, info);
 		this.bankName=bankName;
 		this.code=code;
-		this.invoice=invoice;
-		this.info=info;
 	}
 
-	public String getAddress() {
-		return address;
-	}
 	public String getBankName() {
 		return bankName;
 	}
 	public String getCode() {
 		return code;
-	}
-	public String GetInvoice() {
-		return invoice;
-	}
-	public String getInfo() {
-		return info;
 	}
 }

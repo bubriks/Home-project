@@ -28,7 +28,7 @@ class RentUI extends JFrame {
 	private JLabel lblNewLabel,lblNewLabel_1,lblNewLabel_2,lblNewLabel_3;
 	private JButton btnVrds;
 	private Tenant tenant;
-	private double validElStart,validElEnd,validUdStart,validUdEnd;
+	double validElStart,validElEnd,validUdStart,validUdEnd;
 	
 	RentUI(Tenant tenant, int index){
 		validElStart=tenant.getElectricity();
@@ -112,12 +112,10 @@ class RentUI extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				try{
 					validElEnd=Double.parseDouble(elend.getText());
-					if(index==1){Report.getInstance().getHanger().addTenant_1El(validElEnd);}
-					if(index==2){Report.getInstance().getHanger().addTenant_2El(validElEnd);}
-					if(index==3){Report.getInstance().getHanger().addTenant_3El(validElEnd);}
-					if(index==4){Report.getInstance().getHanger().addTenant_4El(validElEnd);}}
+					Report.getInstance().getHanger().changeElectricity();
+				}
 				catch(Exception e1){
-						elend.setText(""+validElEnd);
+					elend.setText(""+validElEnd);
 	    		}
 			}
 		});
@@ -170,12 +168,10 @@ class RentUI extends JFrame {
 		uend.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				try{
-					validUdEnd=Double.parseDouble(uend.getText());
-					if(index==1){Report.getInstance().getHanger().addTenant_1Wa(validUdEnd);}
-					if(index==2){Report.getInstance().getHanger().addTenant_2Wa(validUdEnd);}
-					if(index==3){Report.getInstance().getHanger().addTenant_3Wa(validUdEnd);}
-					if(index==4){Report.getInstance().getHanger().addTenant_4Wa(validUdEnd);}}
+				try {
+					validUdEnd = Double.parseDouble(uend.getText());
+					Report.getInstance().getHanger().changeWater();
+				}
 				catch(Exception e1){
 						uend.setText(""+validUdEnd);
 	    		}

@@ -13,8 +13,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -24,123 +22,108 @@ import javax.swing.JButton;
 class MeansUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField start,end;
-	private JButton btnMakstjs;
-	private JButton btnNewButton;
-	private Receiver receiver;
-	private Owner owner;
+	JTextField electricityBeginningField, ElectricityEndField;
 	private double validStart,validEnd;
 
-	MeansUI(Owner owner, Receiver receiver, Double electricity) {
+	/*Design*/
+	MeansUI(Double electricity) {
 		validStart=electricity;
 		validEnd=0.0;
-		this.owner=owner;
-		this.receiver = receiver;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+
+		JButton btnReceiver = new JButton("Saņēmējs");
+		GridBagConstraints gbc_btnReceiver = new GridBagConstraints();
+		gbc_btnReceiver.gridwidth = 3;
+		gbc_btnReceiver.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnReceiver.insets = new Insets(0, 0, 5, 5);
+		gbc_btnReceiver.gridx = 0;
+		gbc_btnReceiver.gridy = 0;
+		contentPane.add(btnReceiver, gbc_btnReceiver);
+		btnReceiver.addActionListener(arg0 -> MeansPopUp.getInstance(null));
+
+		JButton btnSender = new JButton("Sūtītājs");
+		GridBagConstraints gbc_btnSender = new GridBagConstraints();
+		gbc_btnSender.gridwidth = 3;
+		gbc_btnSender.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSender.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSender.gridx = 0;
+		gbc_btnSender.gridy = 1;
+		contentPane.add(btnSender, gbc_btnSender);
+		btnSender.addActionListener(arg0 -> MeansPopUp.getInstance(true));
 		
-		btnMakstjs = new JButton("Maksātājs");
-		GridBagConstraints gbc_btnMakstjs = new GridBagConstraints();
-		gbc_btnMakstjs.gridwidth = 3;
-		gbc_btnMakstjs.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnMakstjs.insets = new Insets(0, 0, 5, 5);
-		gbc_btnMakstjs.gridx = 0;
-		gbc_btnMakstjs.gridy = 0;
-		contentPane.add(btnMakstjs, gbc_btnMakstjs);
-		btnMakstjs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MeansPopUp.getInstance(receiver);
-			}
-		});
-		
-		btnNewButton = new JButton("Saņēmējs");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridwidth = 3;
-		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 1;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MeansPopUp.getInstance(owner);
-			}
-		});
-		
-		JLabel startText = new JLabel("Elektrība");
-		GridBagConstraints gbc_lblMneaSkumaRdtji = new GridBagConstraints();
-		gbc_lblMneaSkumaRdtji.gridwidth = 3;
-		gbc_lblMneaSkumaRdtji.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMneaSkumaRdtji.gridx = 0;
-		gbc_lblMneaSkumaRdtji.gridy = 2;
-		contentPane.add(startText, gbc_lblMneaSkumaRdtji);
-		
-		start = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 3;
-		contentPane.add(start, gbc_textField);
-		start.setText(""+validStart);
-		start.setColumns(10);
-		start.addKeyListener(new KeyAdapter() {
+		JLabel lblElectricityBeginning = new JLabel("Elektrība");
+		GridBagConstraints gbc_lblElectricityBeginning = new GridBagConstraints();
+		gbc_lblElectricityBeginning.gridwidth = 3;
+		gbc_lblElectricityBeginning.insets = new Insets(0, 0, 5, 5);
+		gbc_lblElectricityBeginning.gridx = 0;
+		gbc_lblElectricityBeginning.gridy = 2;
+		contentPane.add(lblElectricityBeginning, gbc_lblElectricityBeginning);
+
+		electricityBeginningField = new JTextField();
+		GridBagConstraints gbc_electricityBeginningField = new GridBagConstraints();
+		gbc_electricityBeginningField.insets = new Insets(0, 0, 5, 5);
+		gbc_electricityBeginningField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_electricityBeginningField.gridx = 0;
+		gbc_electricityBeginningField.gridy = 3;
+		contentPane.add(electricityBeginningField, gbc_electricityBeginningField);
+		electricityBeginningField.setText(""+validStart);
+		electricityBeginningField.setColumns(10);
+		electricityBeginningField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				try{
-					validStart=Double.parseDouble(start.getText());}
+					validStart=Double.parseDouble(electricityBeginningField.getText());}
 				catch(Exception e1){
-					start.setText(""+validStart);
+					electricityBeginningField.setText(""+validStart);
 	    		}
 			}
 		});
 		
-		JLabel endText = new JLabel("-");
-		GridBagConstraints gbc_lblMneaBeigu = new GridBagConstraints();
-		gbc_lblMneaBeigu.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMneaBeigu.gridx = 1;
-		gbc_lblMneaBeigu.gridy = 3;
-		contentPane.add(endText, gbc_lblMneaBeigu);
-		
-		end = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 3;
-		contentPane.add(end, gbc_textField_1);
-		end.setColumns(10);
-		end.setText(""+validEnd);
-		end.addKeyListener(new KeyAdapter() {
+		JLabel lblElectricityEnd = new JLabel("-");
+		GridBagConstraints gbc_lblElectricityEnd = new GridBagConstraints();
+		gbc_lblElectricityEnd.insets = new Insets(0, 0, 5, 5);
+		gbc_lblElectricityEnd.gridx = 1;
+		gbc_lblElectricityEnd.gridy = 3;
+		contentPane.add(lblElectricityEnd, gbc_lblElectricityEnd);
+
+		ElectricityEndField = new JTextField();
+		GridBagConstraints gbc_ElectricityEndField = new GridBagConstraints();
+		gbc_ElectricityEndField.insets = new Insets(0, 0, 5, 0);
+		gbc_ElectricityEndField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_ElectricityEndField.gridx = 2;
+		gbc_ElectricityEndField.gridy = 3;
+		contentPane.add(ElectricityEndField, gbc_ElectricityEndField);
+		ElectricityEndField.setColumns(10);
+		ElectricityEndField.setText(""+validEnd);
+		ElectricityEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				try{
-					validEnd=Double.parseDouble(end.getText());
-					Report.getInstance().getHanger().addMeansEl(validEnd);}
+					validEnd=Double.parseDouble(ElectricityEndField.getText());
+					Report.getInstance().getHanger().changeElectricity();
+				}
 				catch(Exception e1){
-					end.setText(""+validEnd);
+					ElectricityEndField.setText(""+validEnd);
 	    		}
 			}
 		});
-	}
-	
-	String getElectricity(){
-		return end.getText();
 	}
 	
 	boolean writeWord(Design design){
-    	if(Double.parseDouble(start.getText())<=Double.parseDouble(end.getText())){
+    	if(Double.parseDouble(electricityBeginningField.getText())<=Double.parseDouble(ElectricityEndField.getText())){
     		try{
-    			new Means(Double.parseDouble(start.getText()),Double.parseDouble(end.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,Report.getInstance().prices, receiver,owner);}
+    			new Means(Double.parseDouble(electricityBeginningField.getText()),Double.parseDouble(ElectricityEndField.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,Report.getInstance().prices, null, null);}
     		catch(Exception e){
     			return false;
     		}

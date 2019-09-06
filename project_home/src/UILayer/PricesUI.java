@@ -22,11 +22,11 @@ import java.awt.event.KeyEvent;
 class PricesUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField,textField_1,textField_2,textField_3;
+	JTextField textField,textField_1,textField_2,textField_3;
 	private JButton btnCenuMaia;
 	private JLabel label;
 	private JLabel lblNewLabel;
-	private double validElStart,validElEnd,validUdStart,validUdEnd;
+	double validElStart,validElEnd,validUdStart,validUdEnd;
 
 	PricesUI(Prices prices){
 		validElStart=prices.getElectricity();
@@ -82,7 +82,7 @@ class PricesUI extends JFrame {
 				try{
 					validElStart=Double.parseDouble(textField.getText());}
 				catch(Exception e1){
-						textField.setText(""+validElStart);
+					textField.setText(""+validElStart);
 	    		}
 			}
 		});
@@ -106,11 +106,12 @@ class PricesUI extends JFrame {
 		textField_2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				try{
-					validElEnd=Double.parseDouble(textField_2.getText());
-					Report.getInstance().getHanger().addTotalEl(validElEnd);}
+				try {
+					validElEnd = Double.parseDouble(textField_2.getText());
+					Report.getInstance().getHanger().changeElectricity();
+				}
 				catch(Exception e1){
-						textField_2.setText(""+validElEnd);
+					textField_2.setText(""+validElEnd);
 	    		}
 			}
 		});
@@ -138,7 +139,7 @@ class PricesUI extends JFrame {
 				try{
 					validUdStart=Double.parseDouble(textField_1.getText());}
 				catch(Exception e1){
-						textField_1.setText(""+validUdStart);
+					textField_1.setText(""+validUdStart);
 	    		}
 			}
 		});
@@ -164,22 +165,15 @@ class PricesUI extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				try{
 					validUdEnd=Double.parseDouble(textField_3.getText());
-					Report.getInstance().getHanger().addTotalWa(validUdEnd);}
+					Report.getInstance().getHanger().changeWater();
+				}
 				catch(Exception e1){
-						textField_3.setText(""+validUdEnd);
+					textField_3.setText(""+validUdEnd);
 	    		}
 			}
 		});
 	}
-	
-	String getElectricity(){
-		return textField_2.getText();
-	}
-	
-	String getWater(){
-		return textField_3.getText();
-	}
-	
+
 	JPanel getPrices(){
 		return contentPane;
 	}

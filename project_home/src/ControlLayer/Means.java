@@ -32,7 +32,7 @@ public class Means {
 		data.add(new Object[]{"Adrese",owner.getAddress(),"",""});//4
 		data.add(new Object[]{"Izsniegts",owner.getAddress(),"",""});//5
 		data.add(new Object[]{"Norēķinu rekvizīti",owner.getBankName(),owner.getCode(),""});//6
-		data.add(new Object[]{"Norēķinu rekvizīti",owner.GetInvoice(),owner.getInfo(),""});//7
+		data.add(new Object[]{"Norēķinu rekvizīti",owner.getInvoice(),owner.getInfo(),""});//7
 		data.add(new Object[]{"Preču saņēmējs", receiver.getName(), receiver.getInfo(),""});//8
 		data.add(new Object[]{"Adrese", receiver.getAddress(),"",""});//9
 		data.add(new Object[]{"Saņemts", receiver.getAddress(),"",""});//10
