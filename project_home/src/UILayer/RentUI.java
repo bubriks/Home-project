@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ControlLayer.RentControler;
+import ControlLayer.InfoController;
 import ControlLayer.Design;
 import ModelLayer.Tenant;
 
@@ -14,8 +14,6 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -23,178 +21,154 @@ import javax.swing.JButton;
 
 class RentUI extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField elstart,elend,ustart,uend;
-	private JLabel lblNewLabel,lblNewLabel_1,lblNewLabel_2,lblNewLabel_3;
-	private JButton btnVrds;
+	JPanel contentPane;
+	JTextField electricityStartField, electricityEndField, waterStartField, waterEndField;
 	private Tenant tenant;
-	double validElStart,validElEnd,validUdStart,validUdEnd;
-	
-	RentUI(Tenant tenant, int index){
-		validElStart=tenant.getElectricity();
-		validElEnd=0.0;
-		validUdStart=tenant.getWater();
-		validUdEnd=0.0;
-		this.tenant=tenant;
+
+	RentUI(int index){
+		switch (index){
+			case 1:
+				tenant= InfoController.info.tenant_1;
+				break;
+			case 2:
+				tenant= InfoController.info.tenant_2;
+				break;
+			case 3:
+				tenant= InfoController.info.tenant_3;
+				break;
+			case 4:
+				tenant= InfoController.info.tenant_4;
+				break;
+			default:
+				break;
+		}
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+
+		JButton nameButton = new JButton(tenant.getName());
+		GridBagConstraints gbc_nameButton = new GridBagConstraints();
+		gbc_nameButton.fill = GridBagConstraints.BOTH;
+		gbc_nameButton.gridwidth = 3;
+		gbc_nameButton.insets = new Insets(0, 0, 5, 5);
+		gbc_nameButton.gridx = 0;
+		gbc_nameButton.gridy = 0;
+		contentPane.add(nameButton, gbc_nameButton);
+		nameButton.addActionListener(arg0 -> TenantPopUp.getInstance(tenant));
+
+		JLabel lblElectricity = new JLabel("Elektrība");
+		GridBagConstraints gbc_lblElectricity = new GridBagConstraints();
+		gbc_lblElectricity.gridwidth = 3;
+		gbc_lblElectricity.insets = new Insets(0, 0, 5, 0);
+		gbc_lblElectricity.gridx = 0;
+		gbc_lblElectricity.gridy = 1;
+		contentPane.add(lblElectricity, gbc_lblElectricity);
 		
-		btnVrds = new JButton(tenant.getName());
-		GridBagConstraints gbc_btnVrds = new GridBagConstraints();
-		gbc_btnVrds.fill = GridBagConstraints.BOTH;
-		gbc_btnVrds.gridwidth = 3;
-		gbc_btnVrds.insets = new Insets(0, 0, 5, 5);
-		gbc_btnVrds.gridx = 0;
-		gbc_btnVrds.gridy = 0;
-		contentPane.add(btnVrds, gbc_btnVrds);
-		btnVrds.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				 TenantPopUp.getInstance(tenant);
-			}
-		});
-		
-		lblNewLabel_3 = new JLabel("Elektrība");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.gridwidth = 3;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 1;
-		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		elstart = new JTextField();
+		electricityStartField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 2;
-		contentPane.add(elstart, gbc_textField);
-		elstart.setText(""+validElStart);
-		elstart.setColumns(10);
-		elstart.addKeyListener(new KeyAdapter() {
+		contentPane.add(electricityStartField, gbc_textField);
+		electricityStartField.setText(""+tenant.getElectricity());
+		electricityStartField.setColumns(10);
+        electricityStartField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+				Report.getInstance().hangar.changeElectricity();
+            }
+        });
+
+		JLabel lblElectricityVS = new JLabel("-");
+		GridBagConstraints gbc_lblElectricityVS = new GridBagConstraints();
+		gbc_lblElectricityVS.insets = new Insets(0, 0, 5, 5);
+		gbc_lblElectricityVS.anchor = GridBagConstraints.EAST;
+		gbc_lblElectricityVS.gridx = 1;
+		gbc_lblElectricityVS.gridy = 2;
+		contentPane.add(lblElectricityVS, gbc_lblElectricityVS);
+		
+		electricityEndField = new JTextField();
+		GridBagConstraints gbc_electricityEndField = new GridBagConstraints();
+		gbc_electricityEndField.insets = new Insets(0, 0, 5, 0);
+		gbc_electricityEndField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_electricityEndField.gridx = 2;
+		gbc_electricityEndField.gridy = 2;
+		contentPane.add(electricityEndField, gbc_electricityEndField);
+		electricityEndField.setColumns(10);
+		electricityEndField.setText("0.0");
+		electricityEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				try{
-					validElStart=Double.parseDouble(elstart.getText());}
-				catch(Exception e1){
-					elstart.setText(""+validElStart);
-	    		}
+				Report.getInstance().hangar.changeElectricity();
 			}
 		});
+
+		JLabel lblWater = new JLabel("Ūdens");
+		GridBagConstraints gbc_lblWater = new GridBagConstraints();
+		gbc_lblWater.gridwidth = 3;
+		gbc_lblWater.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWater.gridx = 0;
+		gbc_lblWater.gridy = 3;
+		contentPane.add(lblWater, gbc_lblWater);
 		
-		lblNewLabel = new JLabel("-");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 2;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		waterStartField = new JTextField();
+		GridBagConstraints gbc_waterStartField = new GridBagConstraints();
+		gbc_waterStartField.insets = new Insets(0, 0, 5, 5);
+		gbc_waterStartField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_waterStartField.gridx = 0;
+		gbc_waterStartField.gridy = 4;
+		contentPane.add(waterStartField, gbc_waterStartField);
+		waterStartField.setText(""+tenant.getWater());
+		waterStartField.setColumns(10);
+        waterStartField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+				Report.getInstance().hangar.changeWater();
+            }
+        });
+
+		JLabel lblWaterVS = new JLabel("-");
+		GridBagConstraints gbc_lblWaterVS = new GridBagConstraints();
+		gbc_lblWaterVS.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWaterVS.anchor = GridBagConstraints.EAST;
+		gbc_lblWaterVS.gridx = 1;
+		gbc_lblWaterVS.gridy = 4;
+		contentPane.add(lblWaterVS, gbc_lblWaterVS);
 		
-		elend = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 2;
-		contentPane.add(elend, gbc_textField_1);
-		elend.setColumns(10);
-		elend.setText(""+validElEnd);
-		elend.addKeyListener(new KeyAdapter() {
+		waterEndField = new JTextField();
+		GridBagConstraints gbc_waterEndField = new GridBagConstraints();
+		gbc_waterEndField.insets = new Insets(0, 0, 5, 0);
+		gbc_waterEndField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_waterEndField.gridx = 2;
+		gbc_waterEndField.gridy = 4;
+		contentPane.add(waterEndField, gbc_waterEndField);
+		waterEndField.setColumns(10);
+		waterEndField.setText("0.0");
+		waterEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				try{
-					validElEnd=Double.parseDouble(elend.getText());
-					Report.getInstance().getHanger().changeElectricity();
-				}
-				catch(Exception e1){
-					elend.setText(""+validElEnd);
-	    		}
+				Report.getInstance().hangar.changeWater();
 			}
 		});
-		
-		lblNewLabel_2 = new JLabel("Ūdens");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.gridwidth = 3;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 3;
-		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		ustart = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 0;
-		gbc_textField_2.gridy = 4;
-		contentPane.add(ustart, gbc_textField_2);
-		ustart.setText(""+validUdStart);
-		ustart.setColumns(10);
-		ustart.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validUdStart=Double.parseDouble(ustart.getText());}
-				catch(Exception e1){
-					ustart.setText(""+validUdStart);
-	    		}
-			}
-		});
-		
-		lblNewLabel_1 = new JLabel("-");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 4;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		uend = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 4;
-		contentPane.add(uend, gbc_textField_3);
-		uend.setColumns(10);
-		uend.setText(""+validUdEnd);
-		uend.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try {
-					validUdEnd = Double.parseDouble(uend.getText());
-					Report.getInstance().getHanger().changeWater();
-				}
-				catch(Exception e1){
-						uend.setText(""+validUdEnd);
-	    		}
-			}
-		});
-	}
-	
-	Tenant getTenant(){
-		return tenant;
-	}
-	
-	String getElectricity(){
-		return elend.getText();
-	}
-	
-	String getWater(){
-		return uend.getText();
 	}
 	
 	boolean writeWord(Design design){
+		//todo fix write word
+		/*
 		if(Double.parseDouble(elstart.getText())<=Double.parseDouble(elend.getText()) && Double.parseDouble(ustart.getText())<=Double.parseDouble(uend.getText())){
 			try{
-				new RentControler(Double.parseDouble(elstart.getText()),Double.parseDouble(elend.getText()),Double.parseDouble(ustart.getText()),Double.parseDouble(uend.getText()),Report.getInstance().workbook,tenant,Report.getInstance().prices,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design);}
+				new RentControler(Double.parseDouble(elstart.getText()),Double.parseDouble(elend.getText()),Double.parseDouble(ustart.getText()),Double.parseDouble(uend.getText()),Report.getInstance().workbook,tenant,InfoController.info.prices,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design);}
     		catch(Exception e){
     			return false;
     		}
@@ -203,9 +177,8 @@ class RentUI extends JFrame {
 		else{
 			return false;
 		}
-	}
-	
-	JPanel getRent(){
-		return contentPane;
+
+		 */
+		return false;
 	}
 }

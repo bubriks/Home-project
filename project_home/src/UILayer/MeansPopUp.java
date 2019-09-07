@@ -27,7 +27,6 @@ import javax.swing.JButton;
 
 class MeansPopUp extends JFrame {
 
-	private JPanel contentPane;
 	private static MeansPopUp instance=null;
 
 	static MeansPopUp getInstance(boolean owner) {
@@ -46,9 +45,9 @@ class MeansPopUp extends JFrame {
 
 	private MeansPopUp(boolean owner) {
 		setAlwaysOnTop (true);
-		setTitle("Sūtītājs");
+		setTitle("Sūtītājs");//todo this changes
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
@@ -132,6 +131,7 @@ class MeansPopUp extends JFrame {
             BankCodeField.setText("owner.getCode()");
             BankCodeField.setColumns(10);
         }
+
 		JLabel lblInvoice = new JLabel("Rekvizīti");
 		GridBagConstraints gbc_lblInvoice = new GridBagConstraints();
 		gbc_lblInvoice.anchor = GridBagConstraints.EAST;
@@ -175,28 +175,8 @@ class MeansPopUp extends JFrame {
 		gbc_btnSave.gridy = 8;
 		contentPane.add(btnSave, gbc_btnSave);
 		btnSave.addActionListener(arg0 -> {
-			try {
-				BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
-				String line;
-				StringBuffer inputBuffer = new StringBuffer();
-				while ((line = in.readLine()) != null) {
-					inputBuffer.append(line);
-					inputBuffer.append('\n');
-				}
-
-				String inputStr = inputBuffer.toString();
-				in.close();
-
-				//inputStr = inputStr.replace("\nOwner- "+owner.getName()+","+owner.getAddress()+" ,"+owner.getBankName()+","+owner.getCode()+","+owner.GetInvoice()+","+owner.getInfo()+";",
-				//		"\nOwner- "+nameField.getText()+","+addressField.getText()+" ,"+bankField.getText()+","+BankCodeField.getText()+","+InvoiceField.getText()+","+BankInfoField.getText()+";");
-
-				try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
-					writer.write(inputStr);
-				}
-			} catch (Exception e) {
-				System.out.println("Problem reading file.");
-			}
-			Report.getInstance().restart();
+			//todo save new info
+			//Report.getInstance().restart();
 			dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
 		});
 		setVisible(true);
@@ -207,12 +187,13 @@ class MeansPopUp extends JFrame {
 	        }
 	    });
 	}
-	 
+
+	//todo remove so only one method
 	 private MeansPopUp(Receiver receiver) {
 			setAlwaysOnTop (true);
 			setTitle("Saņēmējs");
 			setBounds(100, 100, 450, 300);
-			contentPane = new JPanel();
+		 	JPanel contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
 
@@ -301,32 +282,33 @@ class MeansPopUp extends JFrame {
 			gbc_btnNewButton.gridx = 0;
 			gbc_btnNewButton.gridy = 8;
 			contentPane.add(btnNewButton, gbc_btnNewButton);
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
-				        String line;
-				        StringBuffer inputBuffer = new StringBuffer();
-				        while ((line = in.readLine()) != null) {
-				            inputBuffer.append(line);
-				            inputBuffer.append('\n');
-				        }
-				        
-				        String inputStr = inputBuffer.toString();
-				        in.close();
-				        
-				        inputStr = inputStr.replace("\nMeans- "+ receiver.getName()+","+ receiver.getAddress()+" ,"+ receiver.getInvoice()+","+ receiver.getInfo()+","+Report.getInstance().electricity+";",
-				        		"\nMeans- "+textField.getText()+","+textField_1.getText()+" ,"+textField_4.getText()+","+textField_5.getText()+","+Report.getInstance().electricity+";");
-				        				        
-				        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
-				        	writer.write(inputStr);
-				        }
-				    } catch (Exception e) {
-				        System.out.println("Problem reading file.");
-				    }
-					Report.getInstance().restart();
-					dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
+			btnNewButton.addActionListener(arg0 -> {
+				/*
+				try {
+					BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
+					String line;
+					StringBuffer inputBuffer = new StringBuffer();
+					while ((line = in.readLine()) != null) {
+						inputBuffer.append(line);
+						inputBuffer.append('\n');
+					}
+
+					String inputStr = inputBuffer.toString();
+					in.close();
+
+					inputStr = inputStr.replace("\nMeans- "+ receiver.getName()+","+ receiver.getAddress()+" ,"+ receiver.getInvoice()+","+ receiver.getInfo()+","+Report.getInstance().electricity+";",
+							"\nMeans- "+textField.getText()+","+textField_1.getText()+" ,"+textField_4.getText()+","+textField_5.getText()+","+Report.getInstance().electricity+";");
+
+					try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
+						writer.write(inputStr);
+					}
+				} catch (Exception e) {
+					System.out.println("Problem reading file.");
 				}
+				//Report.getInstance().restart();
+				dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
+
+				 */
 			});
 			setVisible(true);
 			

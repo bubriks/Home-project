@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ControlLayer.InfoController;
 import ControlLayer.Means;
 import ControlLayer.Design;
 import ModelLayer.Owner;
@@ -21,14 +22,10 @@ import javax.swing.JButton;
 
 class MeansUI extends JFrame {
 
-	private JPanel contentPane;
+	JPanel contentPane;
 	JTextField electricityBeginningField, ElectricityEndField;
-	private double validStart,validEnd;
 
-	/*Design*/
-	MeansUI(Double electricity) {
-		validStart=electricity;
-		validEnd=0.0;
+	MeansUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -77,16 +74,12 @@ class MeansUI extends JFrame {
 		gbc_electricityBeginningField.gridx = 0;
 		gbc_electricityBeginningField.gridy = 3;
 		contentPane.add(electricityBeginningField, gbc_electricityBeginningField);
-		electricityBeginningField.setText(""+validStart);
+		electricityBeginningField.setText(""+InfoController.info.prices.getElectricity());
 		electricityBeginningField.setColumns(10);
 		electricityBeginningField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				try{
-					validStart=Double.parseDouble(electricityBeginningField.getText());}
-				catch(Exception e1){
-					electricityBeginningField.setText(""+validStart);
-	    		}
+				Report.getInstance().hangar.changeElectricity();
 			}
 		});
 		
@@ -105,25 +98,20 @@ class MeansUI extends JFrame {
 		gbc_ElectricityEndField.gridy = 3;
 		contentPane.add(ElectricityEndField, gbc_ElectricityEndField);
 		ElectricityEndField.setColumns(10);
-		ElectricityEndField.setText(""+validEnd);
+		ElectricityEndField.setText("0.0");
 		ElectricityEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				try{
-					validEnd=Double.parseDouble(ElectricityEndField.getText());
-					Report.getInstance().getHanger().changeElectricity();
-				}
-				catch(Exception e1){
-					ElectricityEndField.setText(""+validEnd);
-	    		}
+				Report.getInstance().hangar.changeElectricity();
 			}
 		});
 	}
 	
 	boolean writeWord(Design design){
-    	if(Double.parseDouble(electricityBeginningField.getText())<=Double.parseDouble(ElectricityEndField.getText())){
+		//todo fix write word
+    	/*if(Double.parseDouble(electricityBeginningField.getText())<=Double.parseDouble(ElectricityEndField.getText())){
     		try{
-    			new Means(Double.parseDouble(electricityBeginningField.getText()),Double.parseDouble(ElectricityEndField.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,Report.getInstance().prices, null, null);}
+    			new Means(Double.parseDouble(electricityBeginningField.getText()),Double.parseDouble(ElectricityEndField.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,InfoController.info.prices, null, null);}
     		catch(Exception e){
     			return false;
     		}
@@ -132,9 +120,7 @@ class MeansUI extends JFrame {
     	else{
     		return false;
     	}
-	}
-	
-	JPanel getMeans(){
-		return contentPane;
+    	 */
+		return false;
 	}
 }

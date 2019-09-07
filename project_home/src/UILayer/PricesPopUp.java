@@ -28,9 +28,7 @@ import javax.swing.JButton;
 
 class PricesPopUp extends JFrame {
 
-	private JPanel contentPane;
 	private static PricesPopUp instance=null;
-	private double validEl,validWa,validKa;
 
 	static PricesPopUp getInstance(Prices prices) {
 		if (instance == null){
@@ -40,15 +38,13 @@ class PricesPopUp extends JFrame {
 	 }
 
 	 private PricesPopUp(Prices prices) {
-		validEl=prices.getElectricityRate();
-		validWa=prices.getWaterRate();
-		validKa=prices.getSewerageRate();
-		setAlwaysOnTop (true);
+		setAlwaysOnTop(true);
 		setTitle("Cenu maiņa");
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		 JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{78, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -56,130 +52,78 @@ class PricesPopUp extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel_1 = new JLabel("Cena par vienību");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 0;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel lblUnitPrice = new JLabel("Cena par vienību");
+		GridBagConstraints gbc_lblUnitPrice = new GridBagConstraints();
+		gbc_lblUnitPrice.gridwidth = 2;
+		gbc_lblUnitPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_lblUnitPrice.gridx = 0;
+		gbc_lblUnitPrice.gridy = 0;
+		contentPane.add(lblUnitPrice, gbc_lblUnitPrice);
 		
-		JLabel lblNewLabel = new JLabel("Elektrība");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 1;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		JLabel lblElectricity = new JLabel("Elektrība");
+		GridBagConstraints gbc_lblElectricity = new GridBagConstraints();
+		gbc_lblElectricity.anchor = GridBagConstraints.EAST;
+		gbc_lblElectricity.insets = new Insets(0, 0, 5, 5);
+		gbc_lblElectricity.gridx = 0;
+		gbc_lblElectricity.gridy = 1;
+		contentPane.add(lblElectricity, gbc_lblElectricity);
 		
-		JTextField textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 1;
-		contentPane.add(textField, gbc_textField);
-		textField.setText(""+validEl);
-		textField.setColumns(10);
-		textField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validEl=Double.parseDouble(textField.getText());}
-				catch(Exception e1){
-						textField.setText(""+validEl);
-	    		}
-			}
-		});
+		JTextField electricityField = new JTextField();
+		GridBagConstraints gbc_electricityField = new GridBagConstraints();
+		gbc_electricityField.insets = new Insets(0, 0, 5, 0);
+		gbc_electricityField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_electricityField.gridx = 1;
+		gbc_electricityField.gridy = 1;
+		contentPane.add(electricityField, gbc_electricityField);
+		electricityField.setText(""+prices.getElectricityRate());
+		electricityField.setColumns(10);
 		
-		JLabel lbldens = new JLabel("Ūdens");
-		GridBagConstraints gbc_lbldens = new GridBagConstraints();
-		gbc_lbldens.anchor = GridBagConstraints.EAST;
-		gbc_lbldens.insets = new Insets(0, 0, 5, 5);
-		gbc_lbldens.gridx = 0;
-		gbc_lbldens.gridy = 2;
-		contentPane.add(lbldens, gbc_lbldens);
+		JLabel lblWater = new JLabel("Ūdens");
+		GridBagConstraints gbc_lblWater = new GridBagConstraints();
+		gbc_lblWater.anchor = GridBagConstraints.EAST;
+		gbc_lblWater.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWater.gridx = 0;
+		gbc_lblWater.gridy = 2;
+		contentPane.add(lblWater, gbc_lblWater);
 		
-		JTextField textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 2;
-		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setText(""+validWa);
-		textField_1.setColumns(10);
-		textField_1.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validWa=Double.parseDouble(textField_1.getText());}
-				catch(Exception e1){
-					textField_1.setText(""+validWa);
-	    		}
-			}
-		});
+		JTextField waterField = new JTextField();
+		GridBagConstraints gbc_waterField = new GridBagConstraints();
+		gbc_waterField.insets = new Insets(0, 0, 5, 0);
+		gbc_waterField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_waterField.gridx = 1;
+		gbc_waterField.gridy = 2;
+		contentPane.add(waterField, gbc_waterField);
+		waterField.setText(""+prices.getWaterRate());
+		waterField.setColumns(10);
 		
-		JLabel lblKanalizcija = new JLabel("Kanalizācija");
-		GridBagConstraints gbc_lblKanalizcija = new GridBagConstraints();
-		gbc_lblKanalizcija.anchor = GridBagConstraints.EAST;
-		gbc_lblKanalizcija.insets = new Insets(0, 0, 5, 5);
-		gbc_lblKanalizcija.gridx = 0;
-		gbc_lblKanalizcija.gridy = 3;
-		contentPane.add(lblKanalizcija, gbc_lblKanalizcija);
+		JLabel lblSewerage = new JLabel("Kanalizācija");
+		GridBagConstraints gbc_lblSewerage = new GridBagConstraints();
+		gbc_lblSewerage.anchor = GridBagConstraints.EAST;
+		gbc_lblSewerage.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSewerage.gridx = 0;
+		gbc_lblSewerage.gridy = 3;
+		contentPane.add(lblSewerage, gbc_lblSewerage);
 		
-		JTextField textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 1;
-		gbc_textField_2.gridy = 3;
-		contentPane.add(textField_2, gbc_textField_2);
-		textField_2.setText(""+validKa);
-		textField_2.setColumns(10);
-		textField_2.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validKa=Double.parseDouble(textField_2.getText());}
-				catch(Exception e1){
-					textField_2.setText(""+validKa);
-	    		}
-			}
-		});
+		JTextField sewerageField = new JTextField();
+		GridBagConstraints gbc_sewerageField = new GridBagConstraints();
+		gbc_sewerageField.insets = new Insets(0, 0, 5, 0);
+		gbc_sewerageField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_sewerageField.gridx = 1;
+		gbc_sewerageField.gridy = 3;
+		contentPane.add(sewerageField, gbc_sewerageField);
+		sewerageField.setText(""+prices.getSewerageRate());
+		sewerageField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Saglabāt");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridwidth = 2;
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 8;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				 try {
-					 	BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
-				        String line;
-				        StringBuffer inputBuffer = new StringBuffer();
-				        while ((line = in.readLine()) != null) {
-				            inputBuffer.append(line);
-				            inputBuffer.append('\n');
-				        }
-				        
-				        String inputStr = inputBuffer.toString();
-				        in.close();
-				        
-				        inputStr = inputStr.replace("\nCenas- "+prices.getElectricityRate()+","+prices.getWaterRate()+","+prices.getSewerageRate()+","+prices.getElectricity()+","+prices.getWater()+";",
-				        		"\nCenas- "+Double.parseDouble(textField.getText())+","+Double.parseDouble(textField_1.getText())+","+Double.parseDouble(textField_2.getText())+","+prices.getElectricity()+","+prices.getWater()+";");
-				        
-				        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
-				        	writer.write(inputStr);
-				        }
-				    } catch (Exception e) {
-				        System.out.println("Problem reading file.");
-				    }
-				 Report.getInstance().restart();
-				 dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
-			}
+		JButton saveButton = new JButton("Saglabāt");
+		GridBagConstraints gbc_saveButton = new GridBagConstraints();
+		gbc_saveButton.gridwidth = 2;
+		gbc_saveButton.gridx = 0;
+		gbc_saveButton.gridy = 8;
+		contentPane.add(saveButton, gbc_saveButton);
+		saveButton.addActionListener(arg0 -> {
+			 //todo save new price rates so they can be used
+			 //Report.getInstance().restart();
+			 dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
 		});
 		setVisible(true);
 		

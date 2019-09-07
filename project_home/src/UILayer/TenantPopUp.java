@@ -31,9 +31,8 @@ public class TenantPopUp extends JFrame {
 
 	private JPanel contentPane;
 	private static TenantPopUp instance=null;
-	private double validRent,validHaet,validGarbage,validInternet;;
 
-	protected static TenantPopUp getInstance(Tenant tenant) {
+	protected static TenantPopUp getInstance(Tenant tenant) {//todo are all get intance is needed
 		if (instance == null){
 			instance = new TenantPopUp(tenant);
 		}
@@ -41,16 +40,13 @@ public class TenantPopUp extends JFrame {
 	 }
 
 	 protected TenantPopUp(Tenant tenant) {
-		validRent=tenant.getRent();
-		validHaet=tenant.getHeating();
-		validGarbage=tenant.getGarbage();
-		validInternet=tenant.getInternet();
 		setAlwaysOnTop (true);
 		setTitle(tenant.getName());
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -91,18 +87,8 @@ public class TenantPopUp extends JFrame {
 		gbc_textField_1.gridx = 1;
 		gbc_textField_1.gridy = 1;
 		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setText(""+validRent);
+		textField_1.setText(""+tenant.getRent());//todo convert correctly
 		textField_1.setColumns(10);
-		textField_1.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validRent=Double.parseDouble(textField_1.getText());}
-				catch(Exception e1){
-						textField_1.setText(""+validRent);
-	    		}
-			}
-		});
 
 		JLabel lblHeating = new JLabel("Apkure");
 		GridBagConstraints gbc_lblHeating = new GridBagConstraints();
@@ -120,18 +106,8 @@ public class TenantPopUp extends JFrame {
 		gbc_textField_2.gridx = 1;
 		gbc_textField_2.gridy = 2;
 		contentPane.add(textField_2, gbc_textField_2);
-		textField_2.setText(""+validHaet);
+		textField_2.setText(""+tenant.getHeating());
 		textField_2.setColumns(10);
-		textField_2.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validHaet=Double.parseDouble(textField_2.getText());}
-				catch(Exception e1){
-						textField_2.setText(""+validHaet);
-	    		}
-			}
-		});
 
 		JLabel lblNewLabel_1 = new JLabel("Miskaste");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -148,18 +124,8 @@ public class TenantPopUp extends JFrame {
 		gbc_textField_3.gridx = 1;
 		gbc_textField_3.gridy = 3;
 		contentPane.add(textField_3, gbc_textField_3);
-		textField_3.setText(""+validGarbage);
+		textField_3.setText(""+tenant.getGarbage());
 		textField_3.setColumns(10);
-		textField_3.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validGarbage=Double.parseDouble(textField_3.getText());}
-				catch(Exception e1){
-						textField_3.setText(""+validGarbage);
-	    		}
-			}
-		});
 
 		JLabel lblNewLabel_2 = new JLabel("Internets");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -176,18 +142,8 @@ public class TenantPopUp extends JFrame {
 		gbc_textField_4.gridx = 1;
 		gbc_textField_4.gridy = 4;
 		contentPane.add(textField_4, gbc_textField_4);
-		textField_4.setText(""+validInternet);
+		textField_4.setText(""+tenant.getInternet());
 		textField_4.setColumns(10);
-		textField_4.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				try{
-					validInternet=Double.parseDouble(textField_4.getText());}
-				catch(Exception e1){
-						textField_4.setText(""+validInternet);
-	    		}
-			}
-		});
 
 		JButton btnNewButton = new JButton("Saglabāt");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -195,32 +151,10 @@ public class TenantPopUp extends JFrame {
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 8;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("info.txt"), StandardCharsets.UTF_8));
-			        String line;
-			        StringBuffer inputBuffer = new StringBuffer();
-			        while ((line = in.readLine()) != null) {
-			            inputBuffer.append(line);
-			            inputBuffer.append('\n');
-			        }
-			        
-			        String inputStr = inputBuffer.toString();
-			        in.close();
-			        
-			        inputStr = inputStr.replace("\n"+tenant.getName()+"- "+tenant.getElectricity()+","+tenant.getWater()+","+tenant.getRent()+","+tenant.getHeating()+","+tenant.getGarbage()+","+tenant.getInternet()+";",
-			        		"\n"+textField.getText()+"- "+tenant.getElectricity()+","+tenant.getWater()+","+Double.parseDouble(textField_1.getText())+","+Double.parseDouble(textField_2.getText())+","+Double.parseDouble(textField_3.getText())+","+Double.parseDouble(textField_4.getText())+";"); 
-			        
-			        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("info.txt"), StandardCharsets.UTF_8)){
-			        	writer.write(inputStr);
-			        }
-			    } catch (Exception e) {
-			        System.out.println("Problem reading file.");
-			    }
-				Report.getInstance().restart();
-				dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
-			}
+		btnNewButton.addActionListener(arg0 -> {
+			//todo save changed info
+			//Report.getInstance().restart();
+			dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
 		});
 		setVisible(true);
 		

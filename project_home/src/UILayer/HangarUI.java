@@ -11,11 +11,9 @@ import javax.swing.JTextField;
 
 public class HangarUI extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField electricityField;
-	private JTextField waterField;
+	JPanel contentPane;
+	private JTextField electricityField, waterField;
 
-	/*Design*/
 	public HangarUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -65,24 +63,23 @@ public class HangarUI extends JFrame {
 	}
 
 	public void changeWater(){
-		Double result= Report.getInstance().price.validUdEnd
-				-(Report.getInstance().rent_1.validUdEnd+
-				Report.getInstance().rent_2.validUdEnd+
-				Report.getInstance().rent_3.validUdEnd+
-				Report.getInstance().rent_4.validUdEnd);
+		Double result= - Double.parseDouble(Report.getInstance().prices.waterEndField.getText())+
+				Double.parseDouble(Report.getInstance().prices.waterStartField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_1.waterEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_2.waterEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_3.waterEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_4.waterEndField.getText());
 		waterField.setText(""+result);
 	}
 	
 	public void changeElectricity(){
-		Double result= Report.getInstance().price.validElEnd
-				-(Report.getInstance().rent_1.validElEnd+
-				Report.getInstance().rent_2.validElEnd+
-				Report.getInstance().rent_3.validElEnd+
-				Report.getInstance().rent_4.validElEnd);
+		Double result= - Double.parseDouble(Report.getInstance().prices.electricityEndField.getText())+
+				Double.parseDouble(Report.getInstance().prices.electricityStartField.getText())+
+				Double.parseDouble(Report.getInstance().means.ElectricityEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_1.electricityEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_2.electricityEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_3.electricityEndField.getText())+
+				Double.parseDouble(Report.getInstance().tenant_4.electricityEndField.getText());
 		electricityField.setText(""+result);
-	}
-
-	public JPanel getHangar(){
-		return contentPane;
 	}
 }
