@@ -37,11 +37,11 @@ class PricesPopUp extends JFrame {
 	    return instance; 
 	 }
 
-	 private PricesPopUp(Prices prices) {
+	private PricesPopUp(Prices prices) {
 		setAlwaysOnTop(true);
 		setTitle("Cenu maiņa");
 		setBounds(100, 100, 450, 300);
-		 JPanel contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
@@ -75,7 +75,7 @@ class PricesPopUp extends JFrame {
 		gbc_electricityField.gridx = 1;
 		gbc_electricityField.gridy = 1;
 		contentPane.add(electricityField, gbc_electricityField);
-		electricityField.setText(""+prices.getElectricityRate());
+		electricityField.setText(Double.toString(prices.electricityRate));
 		electricityField.setColumns(10);
 		
 		JLabel lblWater = new JLabel("Ūdens");
@@ -93,7 +93,7 @@ class PricesPopUp extends JFrame {
 		gbc_waterField.gridx = 1;
 		gbc_waterField.gridy = 2;
 		contentPane.add(waterField, gbc_waterField);
-		waterField.setText(""+prices.getWaterRate());
+		waterField.setText(Double.toString(prices.waterRate));
 		waterField.setColumns(10);
 		
 		JLabel lblSewerage = new JLabel("Kanalizācija");
@@ -111,7 +111,7 @@ class PricesPopUp extends JFrame {
 		gbc_sewerageField.gridx = 1;
 		gbc_sewerageField.gridy = 3;
 		contentPane.add(sewerageField, gbc_sewerageField);
-		sewerageField.setText(""+prices.getSewerageRate());
+		sewerageField.setText(Double.toString(prices.sewerageRate));
 		sewerageField.setColumns(10);
 		
 		JButton saveButton = new JButton("Saglabāt");
@@ -121,9 +121,11 @@ class PricesPopUp extends JFrame {
 		gbc_saveButton.gridy = 8;
 		contentPane.add(saveButton, gbc_saveButton);
 		saveButton.addActionListener(arg0 -> {
-			 //todo save new price rates so they can be used
-			 //Report.getInstance().restart();
-			 dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
+			prices.electricityRate = Double.parseDouble(electricityField.getText());
+			prices.waterRate = Double.parseDouble(waterField.getText());
+			prices.sewerageRate = Double.parseDouble(sewerageField.getText());
+
+			dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
 		});
 		setVisible(true);
 		

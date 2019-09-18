@@ -23,29 +23,29 @@ public class RentControler {
 	public RentControler(Double elstart,Double elend,Double ustart, Double uend,HSSFWorkbook workbook,Tenant tenant,Prices prices,SimpleDateFormat fd,Date date,String dateString,Design design){
 		this.fd = fd;
 		this.dateString=dateString;
-		HSSFSheet sheet = workbook.createSheet(tenant.getName());
+		HSSFSheet sheet = workbook.createSheet(tenant.name);
 		ArrayList<Object[]> data= new ArrayList<>();
 		data.add(new Object[]{"Rēķins - Faktūra",dateString.substring(6, 10)+dateString.substring(3, 5)});//0
 		data.add(new Object[]{"Datums",getDate()});//1
 		data.add(new Object[]{"","",""});//2
-		data.add(new Object[]{"Saņēmējs",tenant.getName(),"",""});//3
+		data.add(new Object[]{"Saņēmējs",tenant.name,"",""});//3
 		data.add(new Object[]{"Piegādes datums",getDeliveryDates(date),"",""});//4
 		data.add(new Object[]{"Elektrības skaitītāja rādījumi",elstart,elend,""});//5
 		data.add(new Object[]{"Ūdens skaitītāja rādījumi",ustart,uend,""});//6
 		data.add(new Object[]{"Kanalizācijas skaitītāja rādījumi",ustart,uend,""});//7
 		data.add(new Object[]{"Nosaukums","Mērvienība","Patērēts","Cena"});//8
-		data.add(new Object[]{"Elektrība","Kwh",tenant.getElectricity(),prices.getElectricityRate()});//9
-		data.add(new Object[]{"Ūdens","m3",tenant.getWater(),prices.getWaterRate()});//10
-		data.add(new Object[]{"Kanalizācija","m3",tenant.getWater(),prices.getSewerageRate()});//11
-		data.add(new Object[]{"Telpu īre","","",tenant.getRent()});//12
+		data.add(new Object[]{"Elektrība","Kwh",tenant.electricity,prices.electricityRate});//9
+		data.add(new Object[]{"Ūdens","m3",tenant.water,prices.waterRate});//10
+		data.add(new Object[]{"Kanalizācija","m3",tenant.water,prices.sewerageRate});//11 //todo should it be watter?
+		data.add(new Object[]{"Telpu īre","","",tenant.rent});//12
 		if(date.getMonth()+1<=5 && date.getMonth()+1>=9){
-			data.add(new Object[]{"Apkure","","",tenant.getHeating()});//13
+			data.add(new Object[]{"Apkure","","",tenant.heating});//13
 		}
 		else{
 			data.add(new Object[]{"Apkure","","",0.0});//13
 		}
-		data.add(new Object[]{"Atkritumi","","",tenant.getGarbage()});//14
-		data.add(new Object[]{"Internets","","",tenant.getInternet()});//15
+		data.add(new Object[]{"Atkritumi","","",tenant.garbage});//14
+		data.add(new Object[]{"Internets","","",tenant.internet});//15
 		data.add(new Object[]{"Kopā:","","","€"});//16
 		data.add(new Object[]{"","","",""});//17
 		

@@ -28,20 +28,20 @@ public class Means {
 		data.add(new Object[]{"Rēķins - Faktūra",dateString.substring(6, 10)+dateString.substring(3, 5)});//0
 		data.add(new Object[]{"Datums",getDate()});//1
 		data.add(new Object[]{"","",""});//2
-		data.add(new Object[]{"Preču nosūtītājs",owner.getName(),"",""});//3
-		data.add(new Object[]{"Adrese",owner.getAddress(),"",""});//4
-		data.add(new Object[]{"Izsniegts",owner.getAddress(),"",""});//5
-		data.add(new Object[]{"Norēķinu rekvizīti",owner.getBankName(),owner.getCode(),""});//6
-		data.add(new Object[]{"Norēķinu rekvizīti",owner.getInvoice(),owner.getInfo(),""});//7
-		data.add(new Object[]{"Preču saņēmējs", receiver.getName(), receiver.getInfo(),""});//8
-		data.add(new Object[]{"Adrese", receiver.getAddress(),"",""});//9
-		data.add(new Object[]{"Saņemts", receiver.getAddress(),"",""});//10
+		data.add(new Object[]{"Preču nosūtītājs",owner.name,"",""});//3
+		data.add(new Object[]{"Adrese",owner.address,"",""});//4
+		data.add(new Object[]{"Izsniegts",owner.address,"",""});//5
+		data.add(new Object[]{"Norēķinu rekvizīti",owner.bankName,owner.code,""});//6
+		data.add(new Object[]{"Norēķinu rekvizīti",owner.invoice,owner.info,""});//7
+		data.add(new Object[]{"Preču saņēmējs", receiver.name, receiver.info,""});//8
+		data.add(new Object[]{"Adrese", receiver.address,"",""});//9
+		data.add(new Object[]{"Saņemts", receiver.address,"",""});//10
 		data.add(new Object[]{"Piegādes datums",getDeliveryDates(date),"",""});//11
-		data.add(new Object[]{"Norēķinu rekvizīti", receiver.getInvoice(),"",""});//12
+		data.add(new Object[]{"Norēķinu rekvizīti", receiver.invoice,"",""});//12
 		data.add(new Object[]{"Samaksas veids un kārtība:","Ar pārskaitījumu līdz "+getDueDate(date),"",""});//13
 		data.add(new Object[]{"Mērijumi",start,end,""});//14
 		data.add(new Object[]{"Nosaukums","Mērvienība","Patērēts","Cena"});//15
-		data.add(new Object[]{"Maksa par elektroenerģiju","Kwh",0,prices.getElectricityRate()});//16
+		data.add(new Object[]{"Maksa par elektroenerģiju","Kwh",0,prices.electricityRate});//16
 		data.add(new Object[]{"Kopā:","","","€"});//17
 		data.add(new Object[]{"","","",""});//18
 		data.add(new Object[]{"","",""});//19

@@ -1,46 +1,43 @@
 package UILayer;
 
+import ControlLayer.InfoController;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ModelLayer.Tenant;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-import ControlLayer.Design;
-import ModelLayer.Prices;
-
 import java.awt.GridBagLayout;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.awt.event.ActionEvent;
 
 public class Report extends JFrame {
 
-	RentUI tenant_1, tenant_2, tenant_3, tenant_4;
-	PricesUI prices;
-	HangarUI hangar;
-	MeansUI means;
+	Rent tenant_1, tenant_2, tenant_3, tenant_4;
+	private GridBagConstraints gbc_tenantPanel_1, gbc_tenantPanel_2, gbc_tenantPanel_3, gbc_tenantPanel_4;
+	Prices prices;
+	Sum hangar;
+	Company means;
+	private static Report instance=null;
 
 	public static void main(String[] args) {
-		new Report();
+		getInstance();
 	}
 
-	//todo use prev month values (dont have random file)
-	//todo clean code, improve UI, notify if before is bigger then after
+	static Report getInstance() {
+		if (instance == null){
+			instance = new Report();
+		}
+		return instance;
+	}
+
+	//todo notify if before is bigger then after
 	//todo fix save
 
 	private Report() {
-		//info();
+		new InfoController();
 		setMinimumSize(new Dimension(800, 600));
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +54,7 @@ public class Report extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
-		prices = new PricesUI();
+		prices = new Prices();
 		JPanel pricePanel = prices.contentPane;
 		GridBagConstraints gbc_pricePanel = new GridBagConstraints();
 		gbc_pricePanel.insets = new Insets(0, 0, 5, 5);
@@ -66,25 +63,23 @@ public class Report extends JFrame {
 		gbc_pricePanel.gridy = 0;
 		contentPane.add(pricePanel, gbc_pricePanel);
 
-		tenant_1 = new RentUI(1);
-		JPanel tenantPanel_1 = tenant_1.contentPane;
-		GridBagConstraints gbc_tenantPanel_1 = new GridBagConstraints();
+		tenant_1 = new Rent(1);
+		gbc_tenantPanel_1 = new GridBagConstraints();
 		gbc_tenantPanel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_tenantPanel_1.fill = GridBagConstraints.BOTH;
 		gbc_tenantPanel_1.gridx = 1;
 		gbc_tenantPanel_1.gridy = 0;
-		contentPane.add(tenantPanel_1, gbc_tenantPanel_1);
+		contentPane.add(tenant_1.contentPane, gbc_tenantPanel_1);
 
-		tenant_2 = new RentUI(2);
-		JPanel tenantPanel_2 = tenant_2.contentPane;
-		GridBagConstraints gbc_tenantPanel_2 = new GridBagConstraints();
+		tenant_2 = new Rent(2);
+		gbc_tenantPanel_2 = new GridBagConstraints();
 		gbc_tenantPanel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_tenantPanel_2.fill = GridBagConstraints.BOTH;
 		gbc_tenantPanel_2.gridx = 2;
 		gbc_tenantPanel_2.gridy = 0;
-		contentPane.add(tenantPanel_2, gbc_tenantPanel_2);
+		contentPane.add(tenant_2.contentPane, gbc_tenantPanel_2);
 
-		means = new MeansUI();
+		means = new Company();
 		JPanel meansPanel = means.contentPane;
 		GridBagConstraints gbc_meansPanel = new GridBagConstraints();
 		gbc_meansPanel.gridheight = 2;
@@ -94,25 +89,23 @@ public class Report extends JFrame {
 		gbc_meansPanel.gridy = 1;
 		contentPane.add(meansPanel, gbc_meansPanel);
 
-		tenant_3 = new RentUI(3);
-		JPanel tenantPanel_3 = tenant_3.contentPane;
-		GridBagConstraints gbc_tenantPanel_3 = new GridBagConstraints();
+		tenant_3 = new Rent(3);
+		gbc_tenantPanel_3 = new GridBagConstraints();
 		gbc_tenantPanel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_tenantPanel_3.fill = GridBagConstraints.BOTH;
 		gbc_tenantPanel_3.gridx = 1;
 		gbc_tenantPanel_3.gridy = 1;
-		contentPane.add(tenantPanel_3, gbc_tenantPanel_3);
+		contentPane.add(tenant_3.contentPane, gbc_tenantPanel_3);
 
-		tenant_4 = new RentUI(4);
-		JPanel tenantPanel_4 = tenant_4.contentPane;
-		GridBagConstraints gbc_tenantPanel_4 = new GridBagConstraints();
+		tenant_4 = new Rent(4);
+		gbc_tenantPanel_4 = new GridBagConstraints();
 		gbc_tenantPanel_4.insets = new Insets(0, 0, 5, 0);
 		gbc_tenantPanel_4.fill = GridBagConstraints.BOTH;
 		gbc_tenantPanel_4.gridx = 2;
 		gbc_tenantPanel_4.gridy = 1;
-		contentPane.add(tenantPanel_4, gbc_tenantPanel_4);
+		contentPane.add(tenant_4.contentPane, gbc_tenantPanel_4);
 
-		hangar = new HangarUI();
+		hangar = new Sum();
 		JPanel hangarPanel = hangar.contentPane;
 		GridBagConstraints gbc_hangarPanel = new GridBagConstraints();
 		gbc_hangarPanel.gridwidth = 2;
@@ -151,7 +144,7 @@ public class Report extends JFrame {
                         saveButton.setBackground(Color.RED);
                     }
                     */
-						//todo fix
+						//todo fix save
 					} catch (Exception e) {
 						saveButton.setBackground(Color.RED);
 					}
@@ -159,6 +152,16 @@ public class Report extends JFrame {
 		);
 		
         setVisible(true);
+	}
+
+	public void Refresh(){
+		tenant_1.nameButton.setText(InfoController.info.tenant_1.name);
+		tenant_2.nameButton.setText(InfoController.info.tenant_2.name);
+		tenant_3.nameButton.setText(InfoController.info.tenant_3.name);
+		tenant_4.nameButton.setText(InfoController.info.tenant_4.name);
+
+		getContentPane().revalidate();
+		getContentPane().repaint();
 	}
 }
  
