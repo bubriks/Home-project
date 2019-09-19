@@ -2,13 +2,15 @@ package ModelLayer;
 
 public class Prices {
 	
-	public Double electricityRate, electricity, waterRate, sewerageRate, water;
+	public Double electricityRate, electricityStart, electricityEnd, waterRate, sewerageRate, waterStart, waterEnd;
 	
-	public Prices(Double electricityRate, Double electricity, Double waterRate, Double sewerageRate, Double water){
+	public Prices(Double electricityRate, Double electricityStart, Double waterRate, Double sewerageRate, Double waterStart){
 		this.electricityRate = electricityRate;
-		this.electricity = electricity;
+		this.electricityStart = electricityStart;
+		this.electricityEnd = 0.0;
 		this.waterRate = waterRate;
 		this.sewerageRate = sewerageRate;
-		this.water = water;
+		this.waterStart = waterStart;
+		this.waterEnd = 0.0;
 	}
 }

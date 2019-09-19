@@ -48,7 +48,7 @@ public class InfoController {
                     water
             );
 
-            Owner owner = new Owner(
+            Sender sender = new Sender(
                     String.valueOf(workbook.getSheetAt(0).getRow(3).getCell(1)),
                     String.valueOf(workbook.getSheetAt(0).getRow(4).getCell(1)),
                     String.valueOf(workbook.getSheetAt(0).getRow(6).getCell(1)),
@@ -61,7 +61,8 @@ public class InfoController {
                     String.valueOf(workbook.getSheetAt(0).getRow(8).getCell(1)),
                     String.valueOf(workbook.getSheetAt(0).getRow(9).getCell(1)),
                     String.valueOf(workbook.getSheetAt(0).getRow(12).getCell(1)),
-                    String.valueOf(workbook.getSheetAt(0).getRow(8).getCell(2))
+                    String.valueOf(workbook.getSheetAt(0).getRow(8).getCell(2)),
+                    Double.parseDouble(String.valueOf(workbook.getSheetAt(0).getRow(14).getCell(2)))
             );
 
             Tenant tenant_1 = new Tenant(
@@ -104,7 +105,7 @@ public class InfoController {
                     Double.parseDouble(String.valueOf(workbook.getSheetAt(4).getRow(15).getCell(3)))
             );
 
-            info = new Info(prices,owner,receiver,tenant_1,tenant_2,tenant_3,tenant_4);
+            info = new Info(prices, sender,receiver,tenant_1,tenant_2,tenant_3,tenant_4);
         } catch (IOException e) {
             //todo file not found
             e.printStackTrace();

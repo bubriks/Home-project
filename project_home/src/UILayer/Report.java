@@ -1,5 +1,6 @@
 package UILayer;
 
+import ControlLayer.DocumentController;
 import ControlLayer.InfoController;
 
 import javax.swing.JFrame;
@@ -124,34 +125,18 @@ public class Report extends JFrame {
 		gbc_saveButton.gridy = 3;
 		contentPane.add(saveButton, gbc_saveButton);
 		saveButton.addActionListener(arg0 -> {
-					try {
-             		/*
-                     workbook = new HSSFWorkbook();
-                     String file = "Rekins"+dateString.substring(6, 10)+"."+dateString.substring(3, 5)+".xls";
-                     out = new FileOutputStream(new File(file));
-                    Design design=new Design(workbook);
-                    if(means.writeWord(design) && tenant_1.writeWord(design) && tenant_2.writeWord(design) && tenant_3.writeWord(design) && tenant_4.writeWord(design)){
-                        workbook.write(out);
-                        out.close();
-                        workbook.close();
-                        Desktop.getDesktop().open(new File(file));
-
-                        //restart();
-                        hangar = new HangarUI();
-                        saveButton.setBackground(Color.GREEN);
-                    }
-                    else{
-                        saveButton.setBackground(Color.RED);
-                    }
-                    */
-						//todo fix save
-					} catch (Exception e) {
+					if(new DocumentController().CreateDocument())
+					{
+						//todo finish
+						saveButton.setBackground(Color.GREEN);
+					}
+					else{
 						saveButton.setBackground(Color.RED);
 					}
 				}
 		);
-		
-        setVisible(true);
+
+		setVisible(true);
 	}
 
 	public void Refresh(){

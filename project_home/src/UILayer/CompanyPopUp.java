@@ -33,7 +33,7 @@ class CompanyPopUp extends JFrame {
 		BusinessPerson person;
 		if(sender){
 			setTitle("Sūtītājs");
-			person = InfoController.info.owner;
+			person = InfoController.info.sender;
 		}
 		else{
 			setTitle("Saņēmējs");
@@ -105,7 +105,7 @@ class CompanyPopUp extends JFrame {
             gbc_bankField.gridx = 1;
             gbc_bankField.gridy = 2;
             contentPane.add(bankField, gbc_bankField);
-            bankField.setText(InfoController.info.owner.bankName);
+            bankField.setText(InfoController.info.sender.bankName);
             bankField.setColumns(10);
 
             JLabel lblBankCode = new JLabel("Bankas kods");
@@ -123,7 +123,7 @@ class CompanyPopUp extends JFrame {
             gbc_BankCodeField.gridx = 1;
             gbc_BankCodeField.gridy = 3;
             contentPane.add(BankCodeField, gbc_BankCodeField);
-            BankCodeField.setText(InfoController.info.owner.code);
+            BankCodeField.setText(InfoController.info.sender.code);
             BankCodeField.setColumns(10);
         }
 
@@ -175,8 +175,8 @@ class CompanyPopUp extends JFrame {
 			person.invoice = InvoiceField.getText();
 			person.info = BankInfoField.getText();
 			if(sender){
-				InfoController.info.owner.bankName = bankField.getText();
-				InfoController.info.owner.code = BankCodeField.getText();
+				InfoController.info.sender.bankName = bankField.getText();
+				InfoController.info.sender.code = BankCodeField.getText();
 			}
 
 			dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));

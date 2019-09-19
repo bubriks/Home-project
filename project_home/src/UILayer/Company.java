@@ -71,11 +71,12 @@ class Company extends JFrame {
 		gbc_electricityBeginningField.gridx = 0;
 		gbc_electricityBeginningField.gridy = 3;
 		contentPane.add(electricityBeginningField, gbc_electricityBeginningField);
-		electricityBeginningField.setText(Double.toString(InfoController.info.prices.electricity)); //todo electricity price could be used 2 time
+		electricityBeginningField.setText(Double.toString(InfoController.info.receiver.electricityStart));
 		electricityBeginningField.setColumns(10);
 		electricityBeginningField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				InfoController.info.receiver.electricityStart = Double.parseDouble(electricityBeginningField.getText());
 				Report.getInstance().hangar.changeElectricity();
 			}
 		});
@@ -95,10 +96,11 @@ class Company extends JFrame {
 		gbc_ElectricityEndField.gridy = 3;
 		contentPane.add(ElectricityEndField, gbc_ElectricityEndField);
 		ElectricityEndField.setColumns(10);
-		ElectricityEndField.setText("0.0");
+		ElectricityEndField.setText(Double.toString(InfoController.info.receiver.electricityEnd));
 		ElectricityEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				InfoController.info.receiver.electricityEnd = Double.parseDouble(ElectricityEndField.getText());
 				Report.getInstance().hangar.changeElectricity();
 			}
 		});

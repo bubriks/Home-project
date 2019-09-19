@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ControlLayer.DocumentController;
 import ControlLayer.InfoController;
 import ControlLayer.Design;
 
@@ -26,22 +27,7 @@ class Rent extends JFrame {
 	private ModelLayer.Tenant tenant;
 
 	Rent(int index){
-		switch (index){
-			case 1:
-				tenant= InfoController.info.tenant_1;
-				break;
-			case 2:
-				tenant= InfoController.info.tenant_2;
-				break;
-			case 3:
-				tenant= InfoController.info.tenant_3;
-				break;
-			case 4:
-				tenant= InfoController.info.tenant_4;
-				break;
-			default:
-				break;
-		}
+		tenant = new DocumentController().GetTenant(index);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -81,11 +67,12 @@ class Rent extends JFrame {
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 2;
 		contentPane.add(electricityStartField, gbc_textField);
-		electricityStartField.setText(Double.toString(tenant.electricity));
+		electricityStartField.setText(Double.toString(tenant.electricityStart));
 		electricityStartField.setColumns(10);
         electricityStartField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+				tenant.electricityStart = Double.parseDouble(electricityStartField.getText());
 				Report.getInstance().hangar.changeElectricity();
             }
         });
@@ -106,10 +93,11 @@ class Rent extends JFrame {
 		gbc_electricityEndField.gridy = 2;
 		contentPane.add(electricityEndField, gbc_electricityEndField);
 		electricityEndField.setColumns(10);
-		electricityEndField.setText("0.0");
+		electricityEndField.setText(Double.toString(tenant.electricityEnd));
 		electricityEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				tenant.electricityEnd = Double.parseDouble(electricityEndField.getText());
 				Report.getInstance().hangar.changeElectricity();
 			}
 		});
@@ -129,11 +117,12 @@ class Rent extends JFrame {
 		gbc_waterStartField.gridx = 0;
 		gbc_waterStartField.gridy = 4;
 		contentPane.add(waterStartField, gbc_waterStartField);
-		waterStartField.setText(Double.toString(tenant.water));
+		waterStartField.setText(Double.toString(tenant.waterStart));
 		waterStartField.setColumns(10);
         waterStartField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+				tenant.waterStart = Double.parseDouble(waterStartField.getText());
 				Report.getInstance().hangar.changeWater();
             }
         });
@@ -154,10 +143,11 @@ class Rent extends JFrame {
 		gbc_waterEndField.gridy = 4;
 		contentPane.add(waterEndField, gbc_waterEndField);
 		waterEndField.setColumns(10);
-		waterEndField.setText("0.0");
+		waterEndField.setText(Double.toString(tenant.waterEnd));
 		waterEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				tenant.waterEnd = Double.parseDouble(waterEndField.getText());
 				Report.getInstance().hangar.changeWater();
 			}
 		});

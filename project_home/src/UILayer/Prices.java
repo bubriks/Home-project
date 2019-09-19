@@ -62,10 +62,11 @@ class Prices extends JFrame {
 		gbc_electricityStartField.gridy = 2;
 		contentPane.add(electricityStartField, gbc_electricityStartField);
 		electricityStartField.setColumns(10);
-		electricityStartField.setText(Double.toString(InfoController.info.prices.electricity));
+		electricityStartField.setText(Double.toString(InfoController.info.prices.electricityStart));
 		electricityStartField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				InfoController.info.prices.electricityStart = Double.parseDouble(electricityStartField.getText());
 				Report.getInstance().hangar.changeElectricity();
 			}
 		});
@@ -85,10 +86,11 @@ class Prices extends JFrame {
 		gbc_electricityEndField.gridy = 2;
 		contentPane.add(electricityEndField, gbc_electricityEndField);
 		electricityEndField.setColumns(10);
-		electricityEndField.setText("0.0");
+		electricityEndField.setText(Double.toString(InfoController.info.prices.electricityEnd));
 		electricityEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				InfoController.info.prices.electricityEnd = Double.parseDouble(electricityEndField.getText());
 				Report.getInstance().hangar.changeElectricity();
 			}
 		});
@@ -108,11 +110,12 @@ class Prices extends JFrame {
 		gbc_waterStartField.gridx = 0;
 		gbc_waterStartField.gridy = 4;
 		contentPane.add(waterStartField, gbc_waterStartField);
-		waterStartField.setText(Double.toString(InfoController.info.prices.waterRate));
+		waterStartField.setText(Double.toString(InfoController.info.prices.waterStart));
 		waterStartField.setColumns(10);
 		waterStartField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				InfoController.info.prices.waterStart = Double.parseDouble(waterStartField.getText());
 				Report.getInstance().hangar.changeWater();
 			}
 		});
@@ -132,10 +135,11 @@ class Prices extends JFrame {
 		gbc_waterEndField.gridy = 4;
 		contentPane.add(waterEndField, gbc_waterEndField);
 		waterEndField.setColumns(10);
-		waterEndField.setText("0.0");
+		waterEndField.setText(Double.toString(InfoController.info.prices.waterEnd));
 		waterEndField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				InfoController.info.prices.waterEnd = Double.parseDouble(waterEndField.getText());
 				Report.getInstance().hangar.changeWater();
 			}
 		});
