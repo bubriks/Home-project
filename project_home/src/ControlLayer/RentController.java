@@ -20,13 +20,13 @@ public class RentController {
 
 	//todo style disappears
 	@SuppressWarnings("deprecation")
-	public RentController(HSSFWorkbook workbook, Tenant tenant, Design design){
+	public RentController(HSSFWorkbook workbook, Tenant tenant){
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 		HSSFSheet sheet = workbook.createSheet(tenant.name);
 		ArrayList<Object[]> data= new ArrayList<>();
-		data.add(new Object[]{"Rēķins - Faktūra",localDate.getYear()+localDate.getMonthValue()});//0
+		data.add(new Object[]{"Rēķins - Faktūra",localDate.getYear()+""+localDate.getMonthValue()});//0
 		data.add(new Object[]{"Datums",CompanyController.getDate(date)});//1
 		data.add(new Object[]{"","",""});//2
 		data.add(new Object[]{"Saņēmējs",tenant.name,"",""});//3
@@ -93,49 +93,49 @@ public class RentController {
 	  			+sheet.getRow(12).getCell(3).getNumericCellValue()+sheet.getRow(13).getCell(3).getNumericCellValue()+sheet.getRow(14).getCell(3).getNumericCellValue()+sheet.getRow(15).getCell(3).getNumericCellValue();
 	  	sheet.getRow(17).createCell(0).setCellValue(CompanyController.nameNumber(number));
 	  	
-	  	setStyle(sheet,design);
+	  	setStyle(sheet);
 	}
 	
-	private void setStyle(HSSFSheet sheet,Design design){
-	  	sheet.getRow(0).getCell(1).setCellStyle(design.getStyle());
-	  	sheet.getRow(1).getCell(1).setCellStyle(design.getStyle());
+	private void setStyle(HSSFSheet sheet){
+	  	sheet.getRow(0).getCell(1).setCellStyle(Design.header);
+	  	sheet.getRow(1).getCell(1).setCellStyle(Design.header);
 	  	
 	  	for(int x=3;x<18;x++){
 	  		for(int y=0;y<4;y++){
 	        	if(x==3 || x==8 || x==4){
 	        		 switch(y) {
 	                 case 0 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignUpLeft());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleUpLeft);
 	                    break;
 	                 case 3 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignUpRight());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleUpRight);
 	                    break;
 	                 default :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignUp());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleUp);
 	        		 }
 	        	}
 	        	else{ if(x==15 || x==17){
 	        		 switch(y) {
 	                 case 0 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignDownLeft());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleDownLeft);
 	                    break;
 	                 case 3 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignDownRight());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleDownRight);
 	                    break;
 	                 default :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignDown());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleDown);
 	              }
 	        	}
 	        	else{
 	        		 switch(y) {
 	                 case 0 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignLeft());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleLeft);
 	                    break;
 	                 case 3 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesignRight());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleRight);
 	                    break;
 	                 default :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(design.getDesign());
+	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.style);
 	              }
 	        	}
 	        }

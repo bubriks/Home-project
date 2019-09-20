@@ -22,8 +22,8 @@ public class DocumentController {
 
             workbook = new HSSFWorkbook();
             FileOutputStream out = new FileOutputStream(new File(file));
-            Design design = new Design(workbook);
-            if (CreateCompanyDocument(design) && CreateTenantDocument(design, 1) && CreateTenantDocument(design, 2) && CreateTenantDocument(design, 3) && CreateTenantDocument(design, 4)) {
+            new Design(workbook);
+            if (CreateCompanyDocument() && CreateTenantDocument(1) && CreateTenantDocument(2) && CreateTenantDocument(3) && CreateTenantDocument(4)) {
                 workbook.write(out);
                 out.close();
                 workbook.close();
@@ -38,9 +38,9 @@ public class DocumentController {
         }
     }
 
-    private boolean CreateCompanyDocument(Design design){
+    private boolean CreateCompanyDocument(){
         if(InfoController.info.receiver.electricityStart<=InfoController.info.receiver.electricityEnd){
-            new CompanyController(workbook, design);
+            new CompanyController(workbook);
             return true;
         }
         else{
@@ -48,10 +48,10 @@ public class DocumentController {
         }
     }
 
-    private boolean CreateTenantDocument(Design design, int index){
+    private boolean CreateTenantDocument(int index){
         Tenant tenant = GetTenant(index);
         if(tenant.electricityStart<=tenant.electricityEnd && tenant.waterStart<=tenant.waterEnd){
-            new RentController(workbook,tenant,design);
+            new RentController(workbook,tenant);
             return true;
         }
         else{
