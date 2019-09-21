@@ -107,8 +107,22 @@ public class InfoController {
 
             info = new Info(prices, sender,receiver,tenant_1,tenant_2,tenant_3,tenant_4);
         } catch (IOException e) {
-            //todo file not found
             e.printStackTrace();
+        }
+    }
+
+    public static Tenant GetTenant(int index){
+        switch (index){
+            case 1:
+                return InfoController.info.tenant_1;
+            case 2:
+                return InfoController.info.tenant_2;
+            case 3:
+                return InfoController.info.tenant_3;
+            case 4:
+                return InfoController.info.tenant_4;
+            default:
+                return null;
         }
     }
 }

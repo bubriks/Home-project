@@ -12,16 +12,16 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-public class CompanyController {
+class CompanyController {
 
-	public CompanyController(HSSFWorkbook workbook){
+	CompanyController(HSSFWorkbook workbook){
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 		HSSFSheet sheet = workbook.createSheet("Means");
 		ArrayList<Object[]> data= new ArrayList<>();
 		data.add(new Object[]{"Rēķins - Faktūra",localDate.getYear()+""+localDate.getMonthValue()});//0
-		data.add(new Object[]{"Datums",getDate(date)});//1
+		data.add(new Object[]{"Datums",DocumentController.getDate(date)});//1
 		data.add(new Object[]{"","",""});//2
 		data.add(new Object[]{"Preču nosūtītājs", InfoController.info.sender.name,"",""});//3
 		data.add(new Object[]{"Adrese", InfoController.info.sender.address,"",""});//4
@@ -31,9 +31,9 @@ public class CompanyController {
 		data.add(new Object[]{"Preču saņēmējs", InfoController.info.receiver.name, InfoController.info.receiver.info,""});//8
 		data.add(new Object[]{"Adrese", InfoController.info.receiver.address,"",""});//9
 		data.add(new Object[]{"Saņemts", InfoController.info.receiver.address,"",""});//10
-		data.add(new Object[]{"Piegādes datums", getDeliveryPeriod(date),"",""});//11
+		data.add(new Object[]{"Piegādes datums", DocumentController.getDeliveryPeriod(date),"",""});//11
 		data.add(new Object[]{"Norēķinu rekvizīti", InfoController.info.receiver.invoice,"",""});//12
-		data.add(new Object[]{"Samaksas veids un kārtība:","Ar pārskaitījumu līdz "+getDueDate(date),"",""});//13
+		data.add(new Object[]{"Samaksas veids un kārtība:","Ar pārskaitījumu līdz "+DocumentController.getDueDate(date),"",""});//13
 		data.add(new Object[]{"Mērijumi",InfoController.info.receiver.electricityStart,InfoController.info.receiver.electricityEnd,""});//14
 		data.add(new Object[]{"Nosaukums","Mērvienība","Patērēts","Cena"});//15
 		data.add(new Object[]{"Maksa par elektroenerģiju","Kwh",0,InfoController.info.prices.electricityRate});//16
@@ -41,7 +41,7 @@ public class CompanyController {
 		data.add(new Object[]{"","","",""});//18
 		data.add(new Object[]{"","",""});//19
 		data.add(new Object[]{"Izsniedza","Sintija Zaņģe","Saņēma",""});//20
-		data.add(new Object[]{getDate(date),"",getDate(date).substring(0, 10),""});//21
+		data.add(new Object[]{DocumentController.getDate(date),"",DocumentController.getDate(date).substring(0, 10),""});//21
 		data.add(new Object[]{"Paraksts","","Paraksts",""});//22
 		
 	  	int rownum = 0;
@@ -87,262 +87,58 @@ public class CompanyController {
 	  	sheet.setColumnWidth(2, 5000);
 	  	sheet.setColumnWidth(3, 5000);
 	  	
-	  	sheet.getRow(18).createCell(0).setCellValue(nameNumber((sheet.getRow(14).getCell(1).getNumericCellValue()+sheet.getRow(14).getCell(2).getNumericCellValue())*sheet.getRow(16).getCell(3).getNumericCellValue()));
+	  	sheet.getRow(18).createCell(0).setCellValue(DocumentController.nameNumber((sheet.getRow(14).getCell(1).getNumericCellValue()+sheet.getRow(14).getCell(2).getNumericCellValue())*sheet.getRow(16).getCell(3).getNumericCellValue()));
 	  	
 	  	setStyle(sheet);
 	}
 	
 	private void setStyle(HSSFSheet sheet){
-	  	sheet.getRow(0).getCell(1).setCellStyle(Design.header);
-	  	sheet.getRow(1).getCell(1).setCellStyle(Design.header);
+	  	sheet.getRow(0).getCell(1).setCellStyle(DesignController.header);
+	  	sheet.getRow(1).getCell(1).setCellStyle(DesignController.header);
 
-	    sheet.getRow(20).getCell(3).setCellStyle(Design.underline);
-	    sheet.getRow(21).getCell(3).setCellStyle(Design.underline);
+	    sheet.getRow(20).getCell(3).setCellStyle(DesignController.underline);
+	    sheet.getRow(21).getCell(3).setCellStyle(DesignController.underline);
 
 	  	for(int x=3;x<19;x++){
 	  		for(int y=0;y<4;y++){
 	        	if(x==3 || x==8){
 	        		 switch(y) {
 	                 case 0 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleUpLeft);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleUpLeft);
 	                    break;
 	                 case 3 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleUpRight);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleUpRight);
 	                    break;
 	                 default :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleUp);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleUp);
 	        		 }
 	        	}
 	        	else{ if(x==12 || x==18){
 	        		 switch(y) {
 	                 case 0 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleDownLeft);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleDownLeft);
 	                    break;
 	                 case 3 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleDownRight);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleDownRight);
 	                    break;
 	                 default :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleDown);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleDown);
 	              }
 	        	}
 	        	else{
 	        		 switch(y) {
 	                 case 0 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleLeft);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleLeft);
 	                    break;
 	                 case 3 :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.styleRight);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.styleRight);
 	                    break;
 	                 default :
-	                	 sheet.getRow(x).getCell(y).setCellStyle(Design.style);
+	                	 sheet.getRow(x).getCell(y).setCellStyle(DesignController.style);
 	              }
 	        	}
 	        }
 	     }
 	  }
-	}
-
-	public static String nameNumber(Double number){
-		String text;
-		DecimalFormat f = new DecimalFormat("##.00");
-		Double cent=number-number.intValue();
-		String cents=f.format(cent).substring(1)+" centi";
-		if(number>0){
-			switch (number.intValue()%10) {
-				case 1:  text = "viens";
-					break;
-				case 2:  text = "divi";
-					break;
-				case 3:  text = "trīs";
-					break;
-				case 4:  text = "četri";
-					break;
-				case 5:  text = "pieci";
-					break;
-				case 6:  text = "seši";
-					break;
-				case 7:  text = "septiņi";
-					break;
-				case 8:  text = "astoņi";
-					break;
-				case 9:  text = "deviņi";
-					break;
-				default: text = "";
-					break;
-			}
-			if(number>9){
-				if(number<20) {
-					switch (number.intValue()%100) {
-						case 10: text = "desmit";
-							break;
-						case 11: text = "vienpadsmit";
-							break;
-						case 12: text = "divpadsmit";
-							break;
-						case 13: text = "trīspadsmit";
-							break;
-						case 14: text = "četrpadsmit";
-							break;
-						case 15: text = "piecpadsmit";
-							break;
-						case 16: text = "sešpadsmit";
-							break;
-						case 17: text = "septiņpadsmit";
-							break;
-						case 18: text = "astoņpadsmit";
-							break;
-						case 19: text = "deviņpadsmit";
-							break;
-					}
-				}
-				else {
-					switch (number.intValue()%100-number.intValue()%10) {
-						case 20:  text = "divdesmit "+text;
-							break;
-						case 30:  text = "trīsdesmit "+text;
-							break;
-						case 40:  text = "četrdesmit "+text;
-							break;
-						case 50:  text = "piecdesmit "+text;
-							break;
-						case 60:  text = "sešdesmit "+text;
-							break;
-						case 70:  text = "septiņdesmit "+text;
-							break;
-						case 80:  text = "astoņdesmit "+text;
-							break;
-						case 90:  text = "deviņdesmit "+text;
-							break;
-						default: text = ""+text;
-							break;
-					}
-				}
-				if(number>99){
-					switch (number.intValue()%1000-number.intValue()%100) {
-						case 100:  text = "viens simts "+text;
-							break;
-						case 200:  text = "divi simti "+text;
-							break;
-						case 300:  text = "trīs simti "+text;
-							break;
-						case 400:  text = "četri simti "+text;
-							break;
-						case 500:  text = "pieci simti "+text;
-							break;
-						case 600:  text = "seši simti "+text;
-							break;
-						case 700:  text = "septiņi simti "+text;
-							break;
-						case 800:  text = "astoņi simti "+text;
-							break;
-						case 900:  text = "deviņi simti "+text;
-							break;
-						default: text = ""+text;
-							break;
-					}
-					if(number>999){
-						if(number>9999){
-							return "Pārāk liels skaitlis!";
-						}
-						else{
-							switch (number.intValue()%10000-number.intValue()%1000) {
-								case 1000:  text = "viens tūkstotis "+text;
-									break;
-								case 2000:  text = "divi tūkstotis "+text;
-									break;
-								case 3000:  text = "trīs tūkstotis "+text;
-									break;
-								case 4000:  text = "četri tūkstotis "+text;
-									break;
-								case 5000:  text = "pieci tūkstotis "+text;
-									break;
-								case 6000:  text = "seši tūkstotis "+text;
-									break;
-								case 7000:  text = "septiņi tūkstotis "+text;
-									break;
-								case 8000:  text = "astoņi tūkstotis "+text;
-									break;
-								case 9000:  text = "deviņi tūkstotis "+text;
-									break;
-								default: text = "";
-									break;
-							}
-						}
-					}
-					else{
-						text=text.substring(0, 1).toUpperCase() + text.substring(1)+" € "+cents;
-					}
-				}
-				else{
-					text=text.substring(0, 1).toUpperCase() + text.substring(1)+" € "+cents;
-				}
-			}
-			else{
-				text=text.substring(0, 1).toUpperCase() + text.substring(1)+" € "+cents;
-			}
-		}
-		else{
-			return "Negatīvi mērijumi";
-		}
-		return text;
-	}
-
-	public static String getDate(Date date){
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String monthString;
-        switch (localDate.getMonthValue()) {
-            case 1:  monthString = "janvāris";
-                     break;
-            case 2:  monthString = "februāris";
-                     break;
-            case 3:  monthString = "marts";
-                     break;
-            case 4:  monthString = "aprīlis";
-                     break;
-            case 5:  monthString = "maijs";
-                     break;
-            case 6:  monthString = "jūnijs";
-                     break;
-            case 7:  monthString = "jūlijs";
-                     break;
-            case 8:  monthString = "augusts";
-                     break;
-            case 9:  monthString = "septembris";
-                     break;
-            case 10: monthString = "oktobris";
-                     break;
-            case 11: monthString = "novembris";
-                     break;
-            case 12: monthString = "decembris";
-                     break;
-            default: monthString = " ";
-                     break;
-        }
-        return localDate.getYear()+".gada "+localDate.getDayOfMonth()+"."+monthString;
-	}
-
-	public static String getDeliveryPeriod(Date date){
-		Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(date); 
-
-        calendar.set(Calendar.DAY_OF_MONTH, 1);  
-        calendar.add(Calendar.DATE, -1);  
-
-        Date lastDayOfMonth = calendar.getTime();
-		LocalDate localDate = lastDayOfMonth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return "01."+localDate.getMonth()+"."+localDate.getYear()+" - "+localDate.getDayOfMonth()+"."+localDate.getMonth()+"."+localDate.getYear();
-	}
-
-	public static String getDueDate(Date date){
-		Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(date); 
-        
-        calendar.add(Calendar.MONTH, 1);  
-        calendar.set(Calendar.DAY_OF_MONTH, 1);  
-        calendar.add(Calendar.DATE, -1);  
-
-        Date lastDayOfMonth = calendar.getTime();
-		LocalDate localDate = lastDayOfMonth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return localDate.getDayOfMonth()+"."+localDate.getMonth()+"."+localDate.getYear();
 	}
 }

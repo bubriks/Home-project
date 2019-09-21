@@ -9,12 +9,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 
-public class Sum extends JFrame {
+class Sum extends JFrame {
 
 	JPanel contentPane;
 	private JTextField electricityField, waterField;
 
-	public Sum() {
+	Sum() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -62,24 +62,43 @@ public class Sum extends JFrame {
 		waterField.setEditable(false);
 	}
 
-	public void changeWater(){
-		Double result= - Double.parseDouble(Report.getInstance().prices.waterEndField.getText())+
-				Double.parseDouble(Report.getInstance().prices.waterStartField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_1.waterEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_2.waterEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_3.waterEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_4.waterEndField.getText());
-		waterField.setText(""+result);
+	void changeWater(){
+        double result= (Double.parseDouble(Report.getInstance().prices.waterEndField.getText())-
+                Double.parseDouble(Report.getInstance().prices.waterStartField.getText()))-
+
+                (Double.parseDouble(Report.getInstance().rent_1.waterEndField.getText())-
+                Double.parseDouble(Report.getInstance().rent_1.waterStartField.getText())+
+
+                Double.parseDouble(Report.getInstance().rent_2.waterEndField.getText())-
+                Double.parseDouble(Report.getInstance().rent_2.waterStartField.getText())+
+
+                Double.parseDouble(Report.getInstance().rent_3.waterEndField.getText())-
+                Double.parseDouble(Report.getInstance().rent_3.waterStartField.getText())+
+
+                Double.parseDouble(Report.getInstance().rent_4.waterEndField.getText())-
+                Double.parseDouble(Report.getInstance().rent_4.waterStartField.getText()));
+
+		waterField.setText(Double.toString(result));
 	}
 	
-	public void changeElectricity(){
-		Double result= - Double.parseDouble(Report.getInstance().prices.electricityEndField.getText())+
-				Double.parseDouble(Report.getInstance().prices.electricityStartField.getText())+
-				Double.parseDouble(Report.getInstance().means.ElectricityEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_1.electricityEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_2.electricityEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_3.electricityEndField.getText())+
-				Double.parseDouble(Report.getInstance().tenant_4.electricityEndField.getText());
-		electricityField.setText(""+result);
+	void changeElectricity(){
+		double result= (Double.parseDouble(Report.getInstance().prices.electricityEndField.getText())-
+				Double.parseDouble(Report.getInstance().prices.electricityStartField.getText()))-
+
+				(Double.parseDouble(Report.getInstance().company.ElectricityEndField.getText())-
+				Double.parseDouble(Report.getInstance().company.electricityBeginningField.getText())+
+
+				Double.parseDouble(Report.getInstance().rent_1.electricityEndField.getText())-
+				Double.parseDouble(Report.getInstance().rent_1.electricityStartField.getText())+
+
+				Double.parseDouble(Report.getInstance().rent_2.electricityEndField.getText())-
+				Double.parseDouble(Report.getInstance().rent_2.electricityStartField.getText())+
+
+				Double.parseDouble(Report.getInstance().rent_3.electricityEndField.getText())-
+				Double.parseDouble(Report.getInstance().rent_3.electricityStartField.getText())+
+
+				Double.parseDouble(Report.getInstance().rent_4.electricityEndField.getText())-
+				Double.parseDouble(Report.getInstance().rent_4.electricityStartField.getText()));
+		electricityField.setText(Double.toString(result));
 	}
 }

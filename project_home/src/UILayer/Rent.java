@@ -6,14 +6,12 @@ import javax.swing.border.EmptyBorder;
 
 import ControlLayer.DocumentController;
 import ControlLayer.InfoController;
-import ControlLayer.Design;
+import ModelLayer.Tenant;
 
-import java.awt.GridBagLayout;
+import java.awt.*;
 import javax.swing.JTextField;
 
-import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
-import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -24,10 +22,10 @@ class Rent extends JFrame {
 	JPanel contentPane;
 	JButton nameButton;
 	JTextField electricityStartField, electricityEndField, waterStartField, waterEndField;
-	private ModelLayer.Tenant tenant;
+	private Tenant tenant;
 
 	Rent(int index){
-		tenant = new DocumentController().GetTenant(index);
+		tenant = InfoController.GetTenant(index);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -41,6 +39,50 @@ class Rent extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+
+		KeyAdapter electricityAdapter = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					if (Double.parseDouble(electricityStartField.getText()) <= Double.parseDouble(electricityEndField.getText())) {
+						electricityStartField.setBackground(Color.white);
+						electricityEndField.setBackground(Color.white);
+					} else {
+						electricityStartField.setBackground(Color.ORANGE);
+						electricityEndField.setBackground(Color.ORANGE);
+					}
+					tenant.electricityStart = Double.parseDouble(electricityStartField.getText());
+					tenant.electricityEnd = Double.parseDouble(electricityEndField.getText());
+					Report.getInstance().sum.changeElectricity();
+				}
+				catch(Exception e1){
+					electricityStartField.setBackground(Color.RED);
+					electricityEndField.setBackground(Color.RED);
+				}
+			}
+		};
+
+		KeyAdapter waterAdapter = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					if (Double.parseDouble(waterStartField.getText()) <= Double.parseDouble(waterEndField.getText())) {
+						waterStartField.setBackground(Color.white);
+						waterEndField.setBackground(Color.white);
+					} else {
+						waterStartField.setBackground(Color.ORANGE);
+						waterEndField.setBackground(Color.ORANGE);
+					}
+					tenant.waterStart = Double.parseDouble(waterStartField.getText());
+					tenant.waterEnd = Double.parseDouble(waterEndField.getText());
+					Report.getInstance().sum.changeElectricity();
+				}
+				catch(Exception e1){
+					waterStartField.setBackground(Color.RED);
+					waterEndField.setBackground(Color.RED);
+				}
+			}
+		};
 
 		nameButton = new JButton(tenant.name);
 		GridBagConstraints gbc_nameButton = new GridBagConstraints();
@@ -69,13 +111,7 @@ class Rent extends JFrame {
 		contentPane.add(electricityStartField, gbc_textField);
 		electricityStartField.setText(Double.toString(tenant.electricityStart));
 		electricityStartField.setColumns(10);
-        electricityStartField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-				tenant.electricityStart = Double.parseDouble(electricityStartField.getText());
-				Report.getInstance().hangar.changeElectricity();
-            }
-        });
+        electricityStartField.addKeyListener(electricityAdapter);
 
 		JLabel lblElectricityVS = new JLabel("-");
 		GridBagConstraints gbc_lblElectricityVS = new GridBagConstraints();
@@ -94,13 +130,7 @@ class Rent extends JFrame {
 		contentPane.add(electricityEndField, gbc_electricityEndField);
 		electricityEndField.setColumns(10);
 		electricityEndField.setText(Double.toString(tenant.electricityEnd));
-		electricityEndField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				tenant.electricityEnd = Double.parseDouble(electricityEndField.getText());
-				Report.getInstance().hangar.changeElectricity();
-			}
-		});
+		electricityEndField.addKeyListener(electricityAdapter);
 
 		JLabel lblWater = new JLabel("Ūdens");
 		GridBagConstraints gbc_lblWater = new GridBagConstraints();
@@ -119,13 +149,7 @@ class Rent extends JFrame {
 		contentPane.add(waterStartField, gbc_waterStartField);
 		waterStartField.setText(Double.toString(tenant.waterStart));
 		waterStartField.setColumns(10);
-        waterStartField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-				tenant.waterStart = Double.parseDouble(waterStartField.getText());
-				Report.getInstance().hangar.changeWater();
-            }
-        });
+        waterStartField.addKeyListener(waterAdapter);
 
 		JLabel lblWaterVS = new JLabel("-");
 		GridBagConstraints gbc_lblWaterVS = new GridBagConstraints();
@@ -144,31 +168,6 @@ class Rent extends JFrame {
 		contentPane.add(waterEndField, gbc_waterEndField);
 		waterEndField.setColumns(10);
 		waterEndField.setText(Double.toString(tenant.waterEnd));
-		waterEndField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				tenant.waterEnd = Double.parseDouble(waterEndField.getText());
-				Report.getInstance().hangar.changeWater();
-			}
-		});
-	}
-	
-	boolean writeWord(Design design){
-		//todo fix write word
-		/*
-		if(Double.parseDouble(elstart.getText())<=Double.parseDouble(elend.getText()) && Double.parseDouble(ustart.getText())<=Double.parseDouble(uend.getText())){
-			try{
-				new RentControler(Double.parseDouble(elstart.getText()),Double.parseDouble(elend.getText()),Double.parseDouble(ustart.getText()),Double.parseDouble(uend.getText()),Report.getInstance().workbook,tenant,InfoController.info.prices,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design);}
-    		catch(Exception e){
-    			return false;
-    		}
-    		 return true;
-		}
-		else{
-			return false;
-		}
-
-		 */
-		return false;
+		waterEndField.addKeyListener(waterAdapter);
 	}
 }

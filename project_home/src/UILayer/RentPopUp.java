@@ -16,23 +16,22 @@ import java.awt.event.WindowEvent;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class RentPopUp extends JFrame {
+class RentPopUp extends JFrame {
 
-	private JPanel contentPane;
 	private static RentPopUp instance=null;
 
-	protected static RentPopUp getInstance(Tenant tenant) {
+	static RentPopUp getInstance(Tenant tenant) {
 		if (instance == null){
 			instance = new RentPopUp(tenant);
 		}
 	    return instance; 
 	 }
 
- 	protected RentPopUp(Tenant tenant) {
+	private RentPopUp(Tenant tenant) {
 		setAlwaysOnTop (true);
 		setTitle(tenant.name);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 

@@ -6,12 +6,10 @@ import javax.swing.border.EmptyBorder;
 
 import ControlLayer.InfoController;
 
-import java.awt.GridBagLayout;
+import java.awt.*;
 import javax.swing.JLabel;
 
-import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
-import java.awt.Insets;
 
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
@@ -35,6 +33,50 @@ class Prices extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+
+		KeyAdapter electricityAdapter = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					if (Double.parseDouble(electricityStartField.getText()) <= Double.parseDouble(electricityEndField.getText())) {
+						electricityStartField.setBackground(Color.white);
+						electricityEndField.setBackground(Color.white);
+					} else {
+						electricityStartField.setBackground(Color.ORANGE);
+						electricityEndField.setBackground(Color.ORANGE);
+					}
+					InfoController.info.prices.electricityStart = Double.parseDouble(electricityStartField.getText());
+					InfoController.info.prices.electricityEnd = Double.parseDouble(electricityEndField.getText());
+					Report.getInstance().sum.changeElectricity();
+				}
+				catch(Exception e1){
+					electricityStartField.setBackground(Color.RED);
+					electricityEndField.setBackground(Color.RED);
+				}
+			}
+		};
+
+		KeyAdapter waterAdapter = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					if (Double.parseDouble(waterStartField.getText()) <= Double.parseDouble(waterEndField.getText())) {
+						waterStartField.setBackground(Color.white);
+						waterEndField.setBackground(Color.white);
+					} else {
+						waterStartField.setBackground(Color.ORANGE);
+						waterEndField.setBackground(Color.ORANGE);
+					}
+					InfoController.info.prices.waterStart = Double.parseDouble(waterStartField.getText());
+					InfoController.info.prices.waterEnd = Double.parseDouble(waterEndField.getText());
+					Report.getInstance().sum.changeElectricity();
+				}
+				catch(Exception e1){
+					waterStartField.setBackground(Color.RED);
+					waterEndField.setBackground(Color.RED);
+				}
+			}
+		};
 
 		JButton btnPriceChange = new JButton("Cenu Maiņa");
 		GridBagConstraints gbc_btnPriceChange = new GridBagConstraints();
@@ -63,13 +105,7 @@ class Prices extends JFrame {
 		contentPane.add(electricityStartField, gbc_electricityStartField);
 		electricityStartField.setColumns(10);
 		electricityStartField.setText(Double.toString(InfoController.info.prices.electricityStart));
-		electricityStartField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				InfoController.info.prices.electricityStart = Double.parseDouble(electricityStartField.getText());
-				Report.getInstance().hangar.changeElectricity();
-			}
-		});
+		electricityStartField.addKeyListener(electricityAdapter);
 
 		JLabel lblElectricityVS = new JLabel("-");
 		GridBagConstraints gbc_lblElectricityVS = new GridBagConstraints();
@@ -87,13 +123,7 @@ class Prices extends JFrame {
 		contentPane.add(electricityEndField, gbc_electricityEndField);
 		electricityEndField.setColumns(10);
 		electricityEndField.setText(Double.toString(InfoController.info.prices.electricityEnd));
-		electricityEndField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				InfoController.info.prices.electricityEnd = Double.parseDouble(electricityEndField.getText());
-				Report.getInstance().hangar.changeElectricity();
-			}
-		});
+		electricityEndField.addKeyListener(electricityAdapter);
 		
 		JLabel lblWater = new JLabel("Ūdens patēriņš");
 		GridBagConstraints gbc_lblWater = new GridBagConstraints();
@@ -112,13 +142,7 @@ class Prices extends JFrame {
 		contentPane.add(waterStartField, gbc_waterStartField);
 		waterStartField.setText(Double.toString(InfoController.info.prices.waterStart));
 		waterStartField.setColumns(10);
-		waterStartField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				InfoController.info.prices.waterStart = Double.parseDouble(waterStartField.getText());
-				Report.getInstance().hangar.changeWater();
-			}
-		});
+		waterStartField.addKeyListener(waterAdapter);
 
 		JLabel lblWaterVS = new JLabel("-");
 		GridBagConstraints gbc_lblWaterVS = new GridBagConstraints();
@@ -136,12 +160,6 @@ class Prices extends JFrame {
 		contentPane.add(waterEndField, gbc_waterEndField);
 		waterEndField.setColumns(10);
 		waterEndField.setText(Double.toString(InfoController.info.prices.waterEnd));
-		waterEndField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				InfoController.info.prices.waterEnd = Double.parseDouble(waterEndField.getText());
-				Report.getInstance().hangar.changeWater();
-			}
-		});
+		waterEndField.addKeyListener(waterAdapter);
 	}
 }

@@ -7,9 +7,9 @@ public class Tenant extends Person{
 	public Tenant(String name, double electricityStart, double waterStart, double rent, double heating, double garbage, double internet){
 		super(name);
 		this.electricityStart = electricityStart;
-		this.electricityEnd = 0.0;
+		this.electricityEnd = electricityStart;
 		this.waterStart = waterStart;
-		this.waterEnd = 0.0;
+		this.waterEnd = waterStart;
 		this.rent=rent;
 		this.heating=heating;
 		this.garbage=garbage;

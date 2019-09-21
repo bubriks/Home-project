@@ -6,11 +6,11 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 @SuppressWarnings("deprecation")
-public class Design {
+class DesignController {
 
-	public static CellStyle header, underline, style, styleUp, styleUpLeft, styleUpRight, styleDown, styleDownLeft, styleDownRight, styleLeft, styleRight;
+	static CellStyle header, underline, style, styleUp, styleUpLeft, styleUpRight, styleDown, styleDownLeft, styleDownRight, styleLeft, styleRight;
 
-	public Design(HSSFWorkbook workbook){
+	DesignController(HSSFWorkbook workbook){
 		header = workbook.createCellStyle();
 		header.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
 		header.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);

@@ -5,14 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ControlLayer.InfoController;
-import ControlLayer.Design;
 
-import java.awt.GridBagLayout;
+import java.awt.*;
 import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -35,6 +31,31 @@ class Company extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+
+		//todo dont allow to print if 1st is smaller then 2nd or any other issue
+		//todo fix calculations
+		//todo when red text it uses the old info
+		KeyAdapter electricityAdapter = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					if (Double.parseDouble(electricityBeginningField.getText()) <= Double.parseDouble(ElectricityEndField.getText())) {
+						electricityBeginningField.setBackground(Color.white);
+						ElectricityEndField.setBackground(Color.white);
+					} else {
+						electricityBeginningField.setBackground(Color.ORANGE);
+						ElectricityEndField.setBackground(Color.ORANGE);
+					}
+					InfoController.info.receiver.electricityStart = Double.parseDouble(electricityBeginningField.getText());
+					InfoController.info.receiver.electricityEnd = Double.parseDouble(ElectricityEndField.getText());
+					Report.getInstance().sum.changeElectricity();
+				}
+				catch(Exception e1){
+					electricityBeginningField.setBackground(Color.RED);
+					ElectricityEndField.setBackground(Color.RED);
+				}
+			}
+		};
 
 		JButton btnReceiver = new JButton("Saņēmējs");
 		GridBagConstraints gbc_btnReceiver = new GridBagConstraints();
@@ -71,16 +92,10 @@ class Company extends JFrame {
 		gbc_electricityBeginningField.gridx = 0;
 		gbc_electricityBeginningField.gridy = 3;
 		contentPane.add(electricityBeginningField, gbc_electricityBeginningField);
-		electricityBeginningField.setText(Double.toString(InfoController.info.receiver.electricityStart));
 		electricityBeginningField.setColumns(10);
-		electricityBeginningField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				InfoController.info.receiver.electricityStart = Double.parseDouble(electricityBeginningField.getText());
-				Report.getInstance().hangar.changeElectricity();
-			}
-		});
-		
+		electricityBeginningField.setText(Double.toString(InfoController.info.receiver.electricityStart));
+		electricityBeginningField.addKeyListener(electricityAdapter);
+
 		JLabel lblElectricityEnd = new JLabel("-");
 		GridBagConstraints gbc_lblElectricityEnd = new GridBagConstraints();
 		gbc_lblElectricityEnd.insets = new Insets(0, 0, 5, 5);
@@ -97,29 +112,6 @@ class Company extends JFrame {
 		contentPane.add(ElectricityEndField, gbc_ElectricityEndField);
 		ElectricityEndField.setColumns(10);
 		ElectricityEndField.setText(Double.toString(InfoController.info.receiver.electricityEnd));
-		ElectricityEndField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				InfoController.info.receiver.electricityEnd = Double.parseDouble(ElectricityEndField.getText());
-				Report.getInstance().hangar.changeElectricity();
-			}
-		});
-	}
-	
-	boolean writeWord(Design design){
-		//todo fix write word
-    	/*if(Double.parseDouble(electricityBeginningField.getText())<=Double.parseDouble(ElectricityEndField.getText())){
-    		try{
-    			new Means(Double.parseDouble(electricityBeginningField.getText()),Double.parseDouble(ElectricityEndField.getText()),Report.getInstance().workbook,Report.getInstance().fd,Report.getInstance().date,Report.getInstance().dateString,design,InfoController.info.prices, null, null);}
-    		catch(Exception e){
-    			return false;
-    		}
-    	 return true;
-    	}
-    	else{
-    		return false;
-    	}
-    	 */
-		return false;
+		ElectricityEndField.addKeyListener(electricityAdapter);
 	}
 }
